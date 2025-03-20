@@ -1,0 +1,56 @@
+
+
+
+.tamContainer{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    .characterContainer{
+        padding: 20px;
+        padding-top: 0px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 60px);
+        min-height: 280px;
+
+        .tam{
+            height: calc(100vh - 60px);
+            min-height: 280px;
+            width: auto;
+            z-index: 0;
+        }
+
+        .char{
+            z-index: -1;
+            position: absolute;
+            top: 57%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            height: calc(0.4 * (100vh - 60px));
+            min-height: calc(0.45 * 240px);
+            width: auto; 
+
+            &.yoda{
+                top: 60%;
+            }
+        }
+    }
+
+    button{
+        margin-top: 100px;
+        align-self: center;
+        border: none;
+        height: fit-content;
+        text-align: center;
+        background: none;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+    
+        &:hover {
+            transform: scale(1.2);
+        }
+
+    }
+}
