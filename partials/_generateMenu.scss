@@ -31,6 +31,49 @@
         }
     }
 
+    .hedgehog{
+        background: #1c19c0;
+        box-shadow: 0px 2px 0px 3px #0e0e6b, -2px 5px 0px 2px #3b38ee inset;
+        &:hover {
+            background: darken(#1c19c0, 10%);
+            box-shadow: 0px 2px 0px 3px #08083f, -2px 5px 0px 2px #1e1bc9 inset;
+        }
+        &:active {
+            background: #1c19c0;
+            box-shadow: 0px 2px 0px 3px #0e0e6b, -2px 5px 0px 2px #3b38ee inset;
+        }
+    }
+
+    .yoda{
+        background: #36b91c;
+        box-shadow: 0px 2px 0px 3px #18550c, -2px 5px 0px 2px #40db20 inset;
+        &:hover {
+            background: darken(#36b91c, 10%);
+            box-shadow: 0px 2px 0px 3px #1a5a0e, -2px 5px 0px 2px #33ac1b inset;
+        }
+        &:active {
+            background: #36b91c;
+            box-shadow: 0px 2px 0px 3px #18550c, -2px 5px 0px 2px #40db20 inset;
+        }
+    }
+
+    .dog{
+        background: linear-gradient(to bottom, #2fa2ff,  #ff0080, #f3ff4e);
+        box-shadow: 0px 2px 0px 3px #053861, -2px 5px 0px 2px #2886d3 inset;
+        &:hover {
+            background: linear-gradient(to bottom,
+                darken(#2fa2ff, 10%),
+                darken(#ff0080, 10%),
+                darken(#f3ff4e, 10%)
+            );
+            box-shadow: 0px 2px 0px 3px #03213a, -2px 5px 0px 2px #2272b4 inset;
+        }
+        &:active {
+            background: linear-gradient(to bottom, #2fa2ff,  #ff0080, #f3ff4e);
+            box-shadow: 0px 2px 0px 3px #053861, -2px 5px 0px 2px #2886d3 inset;
+        }
+    }
+
     .startBtn{
         margin-top: 180px
     }
@@ -40,6 +83,7 @@
         display: flex;
         width: 100%;
         justify-content: center;
+
         .characterContainer{
             padding: 20px;
             padding-top: 0px;

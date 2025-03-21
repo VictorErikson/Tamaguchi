@@ -58,7 +58,7 @@ class Game {
         tamContainer.classList.add("tamContainer");
         const chooseBtn = createBtn();
         chooseBtn.innerText = "Choose Hedge the hedgehog!";
-        chooseBtn.classList.add("btn", "characterSelection");
+        chooseBtn.classList.add("btn", "characterSelection", `${Game.characters[Game.currentCharacterIndex]}`);
         chooseBtn.addEventListener("click", () => Game.generateTam(Game.characterNames[Game.currentCharacterIndex], Game.characters[Game.currentCharacterIndex]));
         root === null || root === void 0 ? void 0 : root.append(tamContainer, chooseBtn);
         const btnNext = createBtn();
@@ -108,6 +108,7 @@ class Game {
                     ? char.classList.add("yoda")
                     : char.classList.remove("yoda");
                 const characterSelection = document.querySelector(".characterSelection");
+                characterSelection && (characterSelection.className = (`btn characterSelection ${Game.characters[Game.currentCharacterIndex]}`));
                 characterSelection && (characterSelection.innerText = `Choose ${Game.characterNames[Game.currentCharacterIndex]}!`);
             }
         };

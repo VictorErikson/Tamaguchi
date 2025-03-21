@@ -87,7 +87,7 @@ class Game {
 
         const chooseBtn = createBtn();
         chooseBtn.innerText = "Choose Hedge the hedgehog!";
-        chooseBtn.classList.add("btn", "characterSelection");
+        chooseBtn.classList.add("btn", "characterSelection", `${Game.characters[Game.currentCharacterIndex]}`);
         chooseBtn.addEventListener("click", () => Game.generateTam(Game.characterNames[Game.currentCharacterIndex], Game.characters[Game.currentCharacterIndex]));
 
         root?.append(tamContainer, chooseBtn)
@@ -139,7 +139,9 @@ class Game {
         const fileFormat = Game.currentCharacterIndex === 1 ? "webp" : "png";
         const newCharSrc = `../assets/img/characters/char${Game.currentCharacterIndex + 1}.${fileFormat}`;
         const newTamSrc = `../assets/img/tam${Game.currentCharacterIndex + 1}.svg`;
-
+        
+        
+   
         const newChar = new Image();
         const newTam = new Image();
 
@@ -158,6 +160,7 @@ class Game {
                     : char.classList.remove("yoda");
                 
                 const characterSelection = document.querySelector(".characterSelection") as HTMLButtonElement;
+                characterSelection && (characterSelection.className = (`btn characterSelection ${Game.characters[Game.currentCharacterIndex]}`));
                 characterSelection && (characterSelection.innerText = `Choose ${Game.characterNames[Game.currentCharacterIndex]}!`);
             }
         }
@@ -168,7 +171,7 @@ class Game {
         newChar.src = newCharSrc;
         newTam.src = newTamSrc;
     };
-
+    
 
     static generateTam(animalName:AnimalName, animalType: AnimalType){
         TamaguchiCount++;
