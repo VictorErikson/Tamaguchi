@@ -1,56 +1,133 @@
-
-
-
-.tamContainer{
+#root{
     display: flex;
-    width: 100%;
-    justify-content: center;
-    .characterContainer{
-        padding: 20px;
-        padding-top: 0px;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: calc(100vh - 60px);
-        min-height: 280px;
+    flex-direction: column;
+    .btn{
+        align-self: center;
+        background: #b117be;
+        box-shadow: 0px 2px 0px 3px #500857, -2px 5px 0px 2px #c41bd3 inset;
+        color: white;
+        font-size: 24px;
+        font-weight: 700;
+        padding: 18px 28px;
+        margin-top: 40px;
+        border-radius: 12px;
+        border: none;
+        text-transform: uppercase;
 
-        .tam{
-            height: calc(100vh - 60px);
-            min-height: 280px;
-            width: auto;
-            z-index: 0;
+        
+        
+        &:hover {
+            background: darken(#b117be, 10%);
+            box-shadow: 0px 2px 0px 3px #500857, -2px 5px 0px 2px #ac18b9 inset;
+            transform: scale(1.05);
+            cursor: pointer;                      
+            transition: transform 0.5s;
         }
-
-        .char{
-            z-index: -1;
-            position: absolute;
-            top: 57%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            height: calc(0.4 * (100vh - 60px));
-            min-height: calc(0.45 * 240px);
-            width: auto; 
-
-            &.yoda{
-                top: 60%;
-            }
+        &:active {
+            transform: scale(1);
+            transition: transform 0.5s;
+            background: #bb47c5;
+            box-shadow: 0px 2px 0px 3px #5b1661, -2px 5px 0px 2px #c651d1 inset;
         }
     }
 
-    button{
-        margin-top: 100px;
-        align-self: center;
-        border: none;
-        height: fit-content;
-        text-align: center;
-        background: none;
-        cursor: pointer;
-        transition: transform 0.3s ease-in-out;
-    
-        &:hover {
-            transform: scale(1.2);
+    .startBtn{
+        margin-top: 180px
+    }
+
+
+    .tamContainer{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        .characterContainer{
+            padding: 20px;
+            padding-top: 0px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 164px);
+            min-height: 280px;
+            max-height: 560px;
+
+            .tam{
+                height: calc(100vh - 164px);
+                min-height: 280px;
+                max-height: 560px;
+                width: auto;
+                z-index: 0;
+            }
+
+            .char{
+                z-index: -1;
+                position: absolute;
+                top: 57%; 
+                left: 50%; 
+                transform: translate(-50%, -50%); 
+                height: calc(0.4 * (100vh - 164px));
+                min-height: calc(0.47 * 240px);
+                max-height: calc(0.40 * 560px);
+                width: auto; 
+
+                &.yoda{
+                    top: 60%;
+                }
+            }
+
+            .controlBtnContainer{
+                position: absolute;
+                height: 100%;
+                width: 40%;
+                justify-content: space-between;
+                display: flex;
+                height: fit-content;
+                top: 85%;
+                
+                .action{
+                    z-index: 1;
+                    // position: absolute;
+                    // top: 87%;
+                    border-radius: 999px;
+                    border: 2px solid black;
+                    background: rgb(215, 236, 250);
+                    padding: 5px;
+                    
+                    margin-top: 0px;
+
+                    &:hover{
+                        &:hover {
+                            background: darken(rgb(215, 236, 250), 10%);
+                            box-shadow: none;
+                            transform: scale(1);
+                            cursor: pointer;                      
+                            transition: transform 0.5s;
+                        }
+                        &:active {
+                            transform: scale(1);
+                            transition: transform 0.5s;
+                            background: #bb47c5;
+                            box-shadow: 0px 2px 0px 3px #5b1661, -2px 5px 0px 2px #c651d1 inset;
+                        }
+                    }
+                }
+            }
         }
 
+        button{
+            margin-top: 100px;
+            align-self: center;
+            border: none;
+            height: fit-content;
+            text-align: center;
+            background: none;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        
+            &:hover {
+                transform: scale(1.2);
+            }
+
+        }
     }
 }

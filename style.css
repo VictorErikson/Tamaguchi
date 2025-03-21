@@ -13,41 +13,108 @@ body {
   width: 100vw;
 }
 
-.tamContainer {
+#root {
+  display: flex;
+  flex-direction: column;
+}
+#root .btn {
+  align-self: center;
+  background: #b117be;
+  box-shadow: 0px 2px 0px 3px #500857, -2px 5px 0px 2px #c41bd3 inset;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  padding: 18px 28px;
+  margin-top: 40px;
+  border-radius: 12px;
+  border: none;
+  text-transform: uppercase;
+}
+#root .btn:hover {
+  background: #871191;
+  box-shadow: 0px 2px 0px 3px #500857, -2px 5px 0px 2px #ac18b9 inset;
+  transform: scale(1.05);
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+#root .btn:active {
+  transform: scale(1);
+  transition: transform 0.5s;
+  background: #bb47c5;
+  box-shadow: 0px 2px 0px 3px #5b1661, -2px 5px 0px 2px #c651d1 inset;
+}
+#root .startBtn {
+  margin-top: 180px;
+}
+#root .tamContainer {
   display: flex;
   width: 100%;
   justify-content: center;
 }
-.tamContainer .characterContainer {
+#root .tamContainer .characterContainer {
   padding: 20px;
   padding-top: 0px;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 164px);
   min-height: 280px;
+  max-height: 560px;
 }
-.tamContainer .characterContainer .tam {
-  height: calc(100vh - 60px);
+#root .tamContainer .characterContainer .tam {
+  height: calc(100vh - 164px);
   min-height: 280px;
+  max-height: 560px;
   width: auto;
   z-index: 0;
 }
-.tamContainer .characterContainer .char {
+#root .tamContainer .characterContainer .char {
   z-index: -1;
   position: absolute;
   top: 57%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: calc(0.4 * (100vh - 60px));
-  min-height: 108px;
+  height: calc(0.4 * (100vh - 164px));
+  min-height: 112.8px;
+  max-height: 224px;
   width: auto;
 }
-.tamContainer .characterContainer .char.yoda {
+#root .tamContainer .characterContainer .char.yoda {
   top: 60%;
 }
-.tamContainer button {
+#root .tamContainer .characterContainer .controlBtnContainer {
+  position: absolute;
+  height: 100%;
+  width: 40%;
+  justify-content: space-between;
+  display: flex;
+  height: -moz-fit-content;
+  height: fit-content;
+  top: 85%;
+}
+#root .tamContainer .characterContainer .controlBtnContainer .action {
+  z-index: 1;
+  border-radius: 999px;
+  border: 2px solid black;
+  background: rgb(215, 236, 250);
+  padding: 5px;
+  margin-top: 0px;
+}
+#root .tamContainer .characterContainer .controlBtnContainer .action:hover:hover {
+  background: #aad6f4;
+  box-shadow: none;
+  transform: scale(1);
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+#root .tamContainer .characterContainer .controlBtnContainer .action:hover:active {
+  transform: scale(1);
+  transition: transform 0.5s;
+  background: #bb47c5;
+  box-shadow: 0px 2px 0px 3px #5b1661, -2px 5px 0px 2px #c651d1 inset;
+}
+#root .tamContainer button {
   margin-top: 100px;
   align-self: center;
   border: none;
@@ -58,6 +125,6 @@ body {
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
 }
-.tamContainer button:hover {
+#root .tamContainer button:hover {
   transform: scale(1.2);
 }/*# sourceMappingURL=style.css.map */
