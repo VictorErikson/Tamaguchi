@@ -138,12 +138,50 @@ class Game {
             btn.onclick = null;
         });
     }
+    static changeMode(direction) {
+        Game.currentLevelIndex += direction;
+        if (Game.currentLevelIndex < 0) {
+            Game.currentLevelIndex = 2;
+        }
+        else if (Game.currentLevelIndex >= 3) {
+            Game.currentLevelIndex = 0;
+        }
+        const selectionDivLeft = document.querySelector(".selectionDivLeft");
+        const selectionDivRight = document.querySelector(".selectionDivRight");
+        const levelText = document.querySelector(".level");
+        const body = document.querySelector("body");
+        if (selectionDivLeft && selectionDivRight && levelText && body) {
+            if (Game.currentLevelIndex === 0) {
+                selectionDivLeft.className = "selectionDivLeft";
+                selectionDivRight.className = "selectionDivRight";
+                levelText.className = "level";
+                levelText.innerText = "Select your Difficulty - Easy mode";
+                body.className = "";
+            }
+            else if (Game.currentLevelIndex === 1) {
+                selectionDivLeft.className = "selectionDivLeft medium";
+                selectionDivRight.className = "selectionDivRight medium";
+                levelText.className = "level medium";
+                body.className = "medium";
+                levelText.innerText = "Select your Difficulty - Normal mode";
+            }
+            else if (Game.currentLevelIndex === 2) {
+                selectionDivLeft.className = "selectionDivLeft hard";
+                selectionDivRight.className = "selectionDivRight hard";
+                levelText.className = "level hard";
+                body.className = "hard";
+                levelText.innerText = "Select your Difficulty - Hardcore mode";
+            }
+        }
+    }
     static generateLevelSelection() {
         var _a;
         Game.removeAllButtonFunction();
         (_a = document.querySelector("h1")) === null || _a === void 0 ? void 0 : _a.remove();
+        const section_8bit = document.createElement("section");
+        section_8bit.classList.add("section_8bit");
         const levelSelectionCon = createDiv();
-        levelSelectionCon.classList.add("levelSelectionCon");
+        levelSelectionCon.classList.add("levelSelectionCon", "wrapper");
         const glass = createImg();
         glass.src = "../assets/img/glass.svg";
         const level = document.createElement("h2");
@@ -154,15 +192,18 @@ class Game {
         const selectionDivLeft = createDiv();
         selectionDivLeft.classList.add("selectionDivLeft");
         levelSelectionCon.append(glass, selectionDivLeft, selectionDivRight);
+        section_8bit.append(levelSelectionCon);
         const startContent = document.querySelector(".startCont");
-        startContent === null || startContent === void 0 ? void 0 : startContent.prepend(level, levelSelectionCon);
-        const prevBtn = document.querySelector("leftBtn");
-        const nextBtn = document.querySelector("rightBtn");
-        // prevBtn.onclick = 
+        startContent === null || startContent === void 0 ? void 0 : startContent.prepend(level, section_8bit);
+        const prevBtn = document.querySelector(".leftBtn");
+        const nextBtn = document.querySelector(".rightBtn");
+        prevBtn && (prevBtn.onclick = () => Game.changeMode(-1));
+        nextBtn && (nextBtn.onclick = () => Game.changeMode(1));
     }
 }
 Game.characters = ["spartan", "alien", "yoda", "dog"];
 Game.characterNames = ["Leonidas", "E.T.", "Yoda", "Ebba Green"];
+Game.currentLevelIndex = 0;
 Game.currentCharacterIndex = 0;
 let activityHistory = [];
 const generateBtn = document.querySelector("#generateTamaguchi");

@@ -86,6 +86,7 @@ let TamaguchiCount = 0;
 class Game {
     static characters : CharacterType[] = ["spartan", "alien", "yoda", "dog"];
     static characterNames: CharacterName[] = ["Leonidas", "E.T.", "Yoda", "Ebba Green"];
+    static currentLevelIndex = 0;
     static currentCharacterIndex = 0;
 
     static generateSNESControl() {
@@ -170,13 +171,53 @@ class Game {
           });
     }
 
+    static changeMode(direction: number) {
+        Game.currentLevelIndex += direction;
+
+        if(Game.currentLevelIndex < 0){
+            Game.currentLevelIndex = 2;
+        } else if (Game.currentLevelIndex >= 3){
+            Game.currentLevelIndex = 0;
+        }
+
+        const selectionDivLeft = document.querySelector(".selectionDivLeft");
+        const selectionDivRight = document.querySelector(".selectionDivRight");
+        const levelText:HTMLParagraphElement | null = document.querySelector(".level");
+        const body = document.querySelector("body");
+
+        if (selectionDivLeft && selectionDivRight && levelText && body){
+            if(Game.currentLevelIndex === 0){
+                selectionDivLeft.className = "selectionDivLeft";
+                selectionDivRight.className = "selectionDivRight";
+                levelText.className = "level";
+                levelText.innerText = "Select your Difficulty - Easy mode"
+                body.className = "";
+            }  else if (Game.currentLevelIndex === 1){
+                selectionDivLeft.className = "selectionDivLeft medium";
+                selectionDivRight.className = "selectionDivRight medium";
+                levelText.className = "level medium";
+                body.className = "medium";
+                levelText.innerText = "Select your Difficulty - Normal mode"
+            } else if(Game.currentLevelIndex === 2){
+                selectionDivLeft.className = "selectionDivLeft hard";
+                selectionDivRight.className = "selectionDivRight hard";
+                levelText.className = "level hard";
+                body.className = "hard";
+                levelText.innerText = "Select your Difficulty - Hardcore mode"
+            }
+        }
+    }
+
     static generateLevelSelection() {
 
         Game.removeAllButtonFunction();
 
         document.querySelector("h1")?.remove();
+        const section_8bit = document.createElement("section");
+        section_8bit.classList.add("section_8bit")
+
         const levelSelectionCon = createDiv();
-        levelSelectionCon.classList.add("levelSelectionCon");
+        levelSelectionCon.classList.add("levelSelectionCon", "wrapper");
         const glass = createImg();
         glass.src = "../assets/img/glass.svg"
 
@@ -189,13 +230,14 @@ class Game {
         selectionDivLeft.classList.add("selectionDivLeft");
 
         levelSelectionCon.append(glass, selectionDivLeft, selectionDivRight);
+        section_8bit.append(levelSelectionCon);
         const startContent = document.querySelector(".startCont")
-        startContent?.prepend(level, levelSelectionCon);
+        startContent?.prepend(level, section_8bit);
 
-        const prevBtn = document.querySelector("leftBtn");
-        const nextBtn = document.querySelector("rightBtn");
-        // prevBtn.onclick = 
-
+        const prevBtn:HTMLButtonElement | null = document.querySelector(".leftBtn");
+        const nextBtn:HTMLButtonElement | null = document.querySelector(".rightBtn");
+        prevBtn && (prevBtn.onclick = () => Game.changeMode(-1))
+        nextBtn && (nextBtn.onclick = () => Game.changeMode(1))
     }
 }
 

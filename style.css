@@ -9,6 +9,12 @@ body {
   padding: 0px;
   font-family: "Press Start 2P", system-ui;
 }
+body.medium {
+  background-image: url("/assets/img/background-cafe.gif");
+}
+body.hard {
+  background-image: url("/assets/img/background-city.gif");
+}
 
 .root {
   width: 100vw;
@@ -220,7 +226,6 @@ button {
 .levelSelectionCon {
   width: 380px;
   height: 415px;
-  border: 16px solid #E3E1E4;
   background-image: url("./assets/img/levelSelection.png");
   background-size: 120%;
   background-repeat: no-repeat;
@@ -230,6 +235,9 @@ button {
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
+  box-shadow: inset 0 10px 8px rgba(0, 0, 0, 0.6);
+  border-left: 15px solid #E3E1E4;
+  border-right: 15px solid #E3E1E4;
 }
 .levelSelectionCon img {
   position: absolute;
@@ -263,12 +271,22 @@ button {
   width: 70%;
 }
 
+:root {
+  --pixel-border: #E3E1E4; /* Inner border color: */
+  --pixel: .225rem; /* Pixel size */
+}
+
+.levelSelectionCon {
+  background-image: url("./assets/img/levelSelection.png");
+  box-shadow: calc(var(--pixel) * -1) 0 0 0 var(--pixel-border), var(--pixel) 0 0 0 var(--pixel-border), 0 calc(var(--pixel) * -2) 0 0 var(--pixel-border), 0 calc(var(--pixel) * 2) 0 0 var(--pixel-border), 0 calc(var(--pixel) * -5) 0 calc(var(--pixel) * -1) var(--pixel-border), 0 calc(var(--pixel) * 5) 0 calc(var(--pixel) * -1) var(--pixel-border), 0 calc(var(--pixel) * -7) 0 calc(var(--pixel) * -2) var(--pixel-border), 0 calc(var(--pixel) * 7) 0 calc(var(--pixel) * -2) var(--pixel-border), 0 calc(var(--pixel) * -10) 0 calc(var(--pixel) * -4) var(--pixel-border), 0 calc(var(--pixel) * 10) 0 calc(var(--pixel) * -4) var(--pixel-border), 0 calc(var(--pixel) * -13) 0 calc(var(--pixel) * -6) var(--pixel-border), 0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-border);
+}
+
 .level {
   padding: 40px;
   color: rgb(68, 255, 22);
 }
 .level.medium {
-  color: rgb(58, 84, 231);
+  color: rgb(28, 54, 199);
 }
 .level.hard {
   color: red;

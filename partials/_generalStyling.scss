@@ -9,6 +9,13 @@ body{
     margin: 0px;
     padding: 0px;
     font-family: 'Press Start 2P', system-ui;
+
+    &.medium{
+        background-image: url("/assets/img/background-cafe.gif");
+    }
+    &.hard{
+        background-image: url("/assets/img/background-city.gif");
+    }
 }
 
 .root{
