@@ -1,5 +1,5 @@
 body {
-  background-image: url("/assets/img/background.svg");
+  background-image: url("/assets/img/background-forest.gif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -7,160 +7,269 @@ body {
   min-width: 100vw;
   margin: 0px;
   padding: 0px;
+  font-family: "Press Start 2P", system-ui;
 }
 
 .root {
   width: 100vw;
 }
 
+button {
+  cursor: pointer;
+}
+
 #root {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-}
-#root .btn {
-  align-self: center;
-  background: #b117be;
-  box-shadow: 0px 2px 0px 3px #500857, -2px 5px 0px 2px #c41bd3 inset;
-  color: white;
-  font-size: 24px;
-  font-weight: 700;
-  padding: 18px 28px;
-  margin-top: 40px;
-  border-radius: 12px;
-  border: none;
-  text-transform: uppercase;
-}
-#root .btn:hover {
-  background: #871191;
-  box-shadow: 0px 2px 0px 3px #500857, -2px 5px 0px 2px #ac18b9 inset;
-  transform: scale(1.05);
-  cursor: pointer;
-  transition: transform 0.5s;
-}
-#root .btn:active {
-  transform: scale(1);
-  transition: transform 0.5s;
-  background: #bb47c5;
-  box-shadow: 0px 2px 0px 3px #5b1661, -2px 5px 0px 2px #c651d1 inset;
-}
-#root .hedgehog {
-  background: #1c19c0;
-  box-shadow: 0px 2px 0px 3px #0e0e6b, -2px 5px 0px 2px #3b38ee inset;
-}
-#root .hedgehog:hover {
-  background: #151393;
-  box-shadow: 0px 2px 0px 3px #08083f, -2px 5px 0px 2px #1e1bc9 inset;
-}
-#root .hedgehog:active {
-  background: #1c19c0;
-  box-shadow: 0px 2px 0px 3px #0e0e6b, -2px 5px 0px 2px #3b38ee inset;
-}
-#root .yoda {
-  background: #36b91c;
-  box-shadow: 0px 2px 0px 3px #18550c, -2px 5px 0px 2px #40db20 inset;
-}
-#root .yoda:hover {
-  background: #298d15;
-  box-shadow: 0px 2px 0px 3px #1a5a0e, -2px 5px 0px 2px #33ac1b inset;
-}
-#root .yoda:active {
-  background: #36b91c;
-  box-shadow: 0px 2px 0px 3px #18550c, -2px 5px 0px 2px #40db20 inset;
-}
-#root .dog {
-  background: linear-gradient(to bottom, #2fa2ff, #ff0080, #f3ff4e);
-  box-shadow: 0px 2px 0px 3px #053861, -2px 5px 0px 2px #2886d3 inset;
-}
-#root .dog:hover {
-  background: linear-gradient(to bottom, #008bfb, #cc0066, #f0ff1b);
-  box-shadow: 0px 2px 0px 3px #03213a, -2px 5px 0px 2px #2272b4 inset;
-}
-#root .dog:active {
-  background: linear-gradient(to bottom, #2fa2ff, #ff0080, #f3ff4e);
-  box-shadow: 0px 2px 0px 3px #053861, -2px 5px 0px 2px #2886d3 inset;
-}
-#root .startBtn {
-  margin-top: 180px;
-}
-#root .tamContainer {
-  display: flex;
-  width: 100%;
   justify-content: center;
-}
-#root .tamContainer .characterContainer {
-  padding: 20px;
-  padding-top: 0px;
+  align-items: center;
   position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+#root .startCont {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+  padding-bottom: 10%;
+}
+#root .startCont h1 {
+  animation: slideIn2 4s ease-out forwards, blink 4s step-start infinite 4.5s;
+  color: rgb(255, 255, 255);
+  padding-bottom: 10%;
+}
+#root .startCont .fullController {
+  animation: slideIn 4s ease-out forwards;
+}
+@keyframes slideIn2 {
+  from {
+    transform: translateY(-100vh);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes blink {
+  0%, 20% {
+    color: rgb(255, 255, 255);
+  }
+  21%, 49% {
+    color: transparent;
+  }
+  50%, 70% {
+    color: red;
+  }
+  71%, 99% {
+    color: transparent;
+  }
+  100% {
+    color: rgb(255, 255, 255);
+  }
+}
+#root .fullController {
+  transform: scale(0.8);
+}
+#root .fullController .controllerLeftpart {
+  position: absolute;
+  top: 0px;
+  left: -120px;
+  top: 0px;
+  width: 300px;
+  height: 300px;
+  background: #E3E1E4;
+  border-radius: 99999009px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 164px);
-  min-height: 280px;
-  max-height: 560px;
 }
-#root .tamContainer .characterContainer .tam {
-  height: calc(100vh - 164px);
-  min-height: 280px;
-  max-height: 560px;
-  width: auto;
-  z-index: 0;
-}
-#root .tamContainer .characterContainer .char {
-  z-index: -1;
+#root .fullController .controllerLeftpart div {
   position: absolute;
-  top: 57%;
+  width: 110px;
+  height: 40px;
+  background: #7E7C7F;
+  border-radius: 5px;
+}
+#root .fullController .controllerLeftpart .cont {
+  width: 180px;
+  height: 180px;
+  position: relative;
+  background: none;
+  border-radius: 5px;
+  border: 1px solid #dcdadd;
+  border-radius: 999px;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#root .fullController .controllerLeftpart .cont .plusBtnsCont {
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: calc(0.4 * (100vh - 164px));
-  min-height: 112.8px;
-  max-height: 224px;
-  width: auto;
 }
-#root .tamContainer .characterContainer .char.yoda {
-  top: 60%;
-}
-#root .tamContainer .characterContainer .controlBtnContainer {
-  position: absolute;
-  height: 100%;
-  width: 40%;
-  justify-content: space-between;
+#root .fullController .controllerLeftpart .cont .plusBtnsCont div {
   display: flex;
-  height: -moz-fit-content;
-  height: fit-content;
-  top: 85%;
+  justify-content: space-between;
 }
-#root .tamContainer .characterContainer .controlBtnContainer .action {
-  z-index: 1;
-  border-radius: 999px;
-  border: 2px solid black;
-  background: rgb(215, 236, 250);
-  padding: 5px;
-  margin-top: 0px;
-}
-#root .tamContainer .characterContainer .controlBtnContainer .action:hover:hover {
-  background: #aad6f4;
-  box-shadow: none;
-  transform: scale(1);
-  cursor: pointer;
-  transition: transform 0.5s;
-}
-#root .tamContainer .characterContainer .controlBtnContainer .action:hover:active {
-  transform: scale(1);
-  transition: transform 0.5s;
-  background: #bb47c5;
-  box-shadow: 0px 2px 0px 3px #5b1661, -2px 5px 0px 2px #c651d1 inset;
-}
-#root .tamContainer button {
-  margin-top: 100px;
-  align-self: center;
-  border: none;
-  height: -moz-fit-content;
-  height: fit-content;
-  text-align: center;
+#root .fullController .controllerLeftpart .cont .plusBtnsCont div button {
   background: none;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  border: none;
+  width: 48px;
 }
-#root .tamContainer button:hover {
-  transform: scale(1.2);
+#root .fullController .controllerLeftpart .cont .plusBtnsCont .upDownBtnDIv {
+  transform: rotate(90deg);
+}
+#root .fullController .controllerBase {
+  width: 450px;
+  height: 270px;
+  background: #E3E1E4;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+}
+#root .fullController .controllerBase div {
+  width: 130px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+  padding-right: 40px;
+}
+#root .fullController .controllerBase div button {
+  background: #7E7C7F;
+  border: none;
+  margin: none;
+  width: 60px;
+  height: 20px;
+  border-radius: 10px;
+  transform: rotate(135deg);
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2), 0 3px 4px rgba(0, 0, 0, 0.2);
+}
+#root .fullController .controllerBase div p {
+  padding-top: 10px;
+  padding-bottom: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+  font-weight: 800;
+  color: #c7c7c7;
+}
+#root .fullController .controllerRightpart {
+  box-sizing: border-box;
+  border: 20px solid #E3E1E4;
+  background: #7E7C7F;
+  position: absolute;
+  right: -120px;
+  top: 0px;
+  width: 300px;
+  height: 300px;
+  border-radius: 99999009px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transform: rotate(135deg);
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#root .fullController .controllerRightpart div {
+  display: flex;
+  justify-content: space-between;
+  width: 150px;
+  height: -moz-fit-content;
+  height: fit-content;
+  background: #E3E1E4;
+  padding: 5px;
+  border-radius: 50px;
+}
+#root .fullController .controllerRightpart div button {
+  width: 50px;
+  height: 50px;
+  border-radius: 999px;
+  border: 1px solid rgb(124, 124, 124);
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#root .fullController .controllerRightpart div .xBtn {
+  background: #4D80F5;
+  box-shadow: -2px 1px 0px 3px #6c91e9 inset;
+}
+#root .fullController .controllerRightpart div .yBtn {
+  background: #5DDDAD;
+  box-shadow: -2px 1px 0px 3px #6fe9bc inset;
+}
+#root .fullController .controllerRightpart div .aBtn {
+  background: #d83b42;
+  box-shadow: -2px 1px 0px 3px #e66066 inset;
+}
+#root .fullController .controllerRightpart div .bBtn {
+  background: #FEF165;
+  box-shadow: -2px 1px 0px 3px #ebe392 inset;
+}
+
+.levelSelectionCon {
+  width: 380px;
+  height: 415px;
+  border: 16px solid #E3E1E4;
+  background-image: url("./assets/img/levelSelection.png");
+  background-size: 120%;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.levelSelectionCon img {
+  position: absolute;
+  height: 110%;
+}
+.levelSelectionCon .selectionDivRight {
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  height: 100%;
+  width: 70%;
+  align-self: flex-end;
+}
+.levelSelectionCon .selectionDivRight.medium {
+  width: 30%;
+}
+.levelSelectionCon .selectionDivRight.hard {
+  width: 0%;
+}
+.levelSelectionCon .selectionDivLeft {
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  height: 100%;
+  width: 30%;
+  align-self: flex-start;
+}
+.levelSelectionCon .selectionDivLeft.medium {
+  background: rgba(0, 0, 0, 0.6);
+}
+.levelSelectionCon .selectionDivLeft.hard {
+  background: rgba(0, 0, 0, 0.6);
+  width: 70%;
+}
+
+.level {
+  padding: 40px;
+  color: rgb(68, 255, 22);
+}
+.level.medium {
+  color: rgb(58, 84, 231);
+}
+.level.hard {
+  color: red;
 }/*# sourceMappingURL=style.css.map */

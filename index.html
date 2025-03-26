@@ -4,10 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tamaguchi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Parkinsans&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="dist/script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="root"></div>
+    <div id="root">
+        <div class="startCont">
+            <h1>Press start to play!</h1>
+            <div class="fullController">
+                <div class="controllerLeftpart">
+                    <div class="cont">
+                        <div class="plusBtnsCont">
+                            <div class="leftRightBtnDIv">
+                                <button class="leftBtn"></button>
+                                <button class="rightBtn"></button>
+                            </div>
+                            <div class="upDownBtnDIv">
+                                <button class="uppBtn"></button>
+                                <button class="downBtn"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controllerBase">
+                    <div class="selectStartCont">
+                        <button class="selectBtn"></button>
+                        <button class="startBtn" onclick="Game.generateLevelSelection()"></button>
+                    </div>
+                    <div class="selectStartTextsCont">
+                        <p>SELECT</p>
+                        <p>START</p>
+                    </div>
+                </div>
+                <div class="controllerRightpart"><div class="XnYCont"><button class="xBtn"></button><button class="yBtn"></button></div><div class="AnBCont"><button class="aBtn"></button><button class="bBtn"></button></div></div></div>
+        </div>
+    </div>
 </body>
 </html>

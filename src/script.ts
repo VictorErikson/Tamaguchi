@@ -1,20 +1,23 @@
-type AnimalType = "hedgehog" | "giraffe" | "yoda" | "dog";
-type AnimalName = "Hedge the hedgehog" | "Gisela" | "Yoda" | "Ebba Green";
+type CharacterType = "spartan" | "alien" | "yoda" | "dog";
+type CharacterName = "Leonidas" | "E.T." | "Yoda" | "Ebba Green";
+type Mode = "easy" | "medium" | "hard";
 
 
 class Tamaguchi {
     name: string;
-    animalType: AnimalType;
+    character: CharacterType;
     energy: number;
     fullness: number;
     happiness: number;
+    mode: Mode;
     
-    constructor(name: string, animalType: AnimalType){
+    constructor(name: string, character: CharacterType, mode: Mode){
         this.name = name;
-        this.animalType = animalType;
+        this.character = character;
         this.energy = 50;
         this.fullness = 50;
         this.happiness = 50;
+        this.mode = mode;
 
         this.startLoop();
     }
@@ -32,7 +35,13 @@ class Tamaguchi {
         this.fullness -= 10;
         this.energy -= 10;
         
-        activityHistory.push(`${this.name} starts playing`);
+        if(this.character === "spartan"){
+            activityHistory.push(`${this.name} starts fighting in an epic battle! 🛡️⚔️`);
+        } else if(this.character === "alien"){
+            activityHistory.push(`${this.name} starts experimenting on an innocent human. This brings him great pleasure.`);
+        }else if (this.character === "dog"){
+            activityHistory.push(`${this.name} Starts playing some guitar. Sounds great! 🎸🎵`);
+        }else{activityHistory.push(`${this.name} starts playing`);}
     }
     
     eat(){
@@ -40,13 +49,23 @@ class Tamaguchi {
         this.happiness += 5;
         this.energy -= 15;
 
-        activityHistory.push(`${this.name} starts eating, yummy!`);
+        if(this.character === "alien"){
+            activityHistory.push(`${this.name} starts eating some brain, yummy! 🧠`);
+        } else {
+        activityHistory.push(`${this.name} starts eating a delicious meal. 🍕🍎`);
+        }
     }
 
     private startLoop(): void {
+        let time = 0;
+        if (this.mode === "easy"){ 
+            time = 10000
+        }else if(this.mode === "medium"){
+            time = 5000
+        }else{time = 1000}
         setInterval(() => {
             this.updateStats()
-        }, 10000)
+        }, time)
     }
 
     private updateStats(): void {
@@ -65,180 +84,122 @@ const root:HTMLDivElement | null = document.querySelector("#root")
 let TamaguchiCount = 0;
 
 class Game {
-    static characters : AnimalType[] = ["hedgehog", "giraffe", "yoda", "dog"];
-    static characterNames: AnimalName[] = ["Hedge the hedgehog", "Gisela", "Yoda", "Ebba Green"];
+    static characters : CharacterType[] = ["spartan", "alien", "yoda", "dog"];
+    static characterNames: CharacterName[] = ["Leonidas", "E.T.", "Yoda", "Ebba Green"];
     static currentCharacterIndex = 0;
 
-    static generateStartBtn(){
-        const generateBtn = createBtn();
-        generateBtn.innerText = "Generate your first Tamaguchi!"
-        generateBtn.classList.add("btn", "startBtn")
-        generateBtn.addEventListener("click", Game.generateMenu)
+    static generateSNESControl() {
+        const controllerBase = createDiv();
+        controllerBase.classList.add("controllerBase");
+        const controllerLeftpart = createDiv();
+        controllerLeftpart.classList.add("controllerLeftpart");
+        const controllerRightpart = createDiv();
+        controllerRightpart.classList.add("controllerRightpart");
+
+        const startBtn = createBtn();
+        startBtn.classList.add("startBtn");
+        const selectBtn = createBtn();
+        selectBtn.classList.add("selectBtn");
+        const selectStartCont = createDiv();
+        selectStartCont.classList.add("selectStartCont");
+        selectStartCont.append(selectBtn, startBtn);
+
+        const selectText = document.createElement("p");
+        const startText = document.createElement("p");
+        selectText.innerText = "SELECT"
+        startText.innerText = "START"
+        const selectStartTextsCont = createDiv();
+        selectStartTextsCont.classList.add("selectStartTextsCont");
+        selectStartTextsCont.append(selectText, startText)
+        controllerBase.append(selectStartCont, selectStartTextsCont)
+
+        const upDownBtnDIv = createDiv();
+        upDownBtnDIv.classList.add("upDownBtnDIv")
+        const uppBtn = createBtn();
+        uppBtn.classList.add("uppBtn");
+        const downBtn = createBtn();
+        downBtn.classList.add("downBtn");
+        upDownBtnDIv.append(uppBtn, downBtn)
         
-        root?.append(generateBtn)
+        const leftRightBtnDIv = createDiv();
+        leftRightBtnDIv.classList.add("leftRightBtnDIv")
+        const leftBtn = createBtn();
+        leftBtn.classList.add("leftBtn");
+        const rightBtn = createBtn();
+        rightBtn.classList.add("rightBtn");
+        leftRightBtnDIv.append(leftBtn, rightBtn)
+
+        const plusBtnsCont = createDiv();
+        plusBtnsCont.classList.add("plusBtnsCont")
+        plusBtnsCont.append(leftRightBtnDIv, upDownBtnDIv)
+        const cont = createDiv();
+        cont.classList.add("cont")
+        cont.append(plusBtnsCont)
+        controllerLeftpart.append(cont)
+
+        const xBtn = createBtn();
+        xBtn.classList.add("xBtn");
+        const yBtn = createBtn();
+        yBtn.classList.add("yBtn");
+        const XnYCont = createDiv();
+        XnYCont.classList.add("XnYCont");
+        XnYCont.append(xBtn, yBtn);
+        
+        const aBtn = createBtn();
+        aBtn.classList.add("aBtn");
+        const bBtn = createBtn();
+        bBtn.classList.add("bBtn");
+        const AnBCont = createDiv();
+        AnBCont.classList.add("AnBCont");
+        AnBCont.append(aBtn, bBtn);
+
+        controllerRightpart.append(XnYCont, AnBCont)
+
+        const fullController = createDiv();
+        fullController.classList.add("fullController")
+        fullController.append(controllerLeftpart, controllerBase, controllerRightpart)
+        
+        
+        
+        root === null || root === void 0 ? void 0 : root.append(fullController);
     }
 
-    static generateMenu(){
-        if (!root) return;
-        root.innerHTML = "";
-
-        const tamContainer = createDiv();
-        tamContainer.classList.add("tamContainer");
-
-        const chooseBtn = createBtn();
-        chooseBtn.innerText = "Choose Hedge the hedgehog!";
-        chooseBtn.classList.add("btn", "characterSelection", `${Game.characters[Game.currentCharacterIndex]}`);
-        chooseBtn.addEventListener("click", () => Game.generateTam(Game.characterNames[Game.currentCharacterIndex], Game.characters[Game.currentCharacterIndex]));
-
-        root?.append(tamContainer, chooseBtn)
-
-        const btnNext = createBtn();
-        const btnNextIcon = createImg();
-        btnNextIcon.src = `../assets/icons/arrow_forward.svg`;
-        btnNext.classList.add("btnNext");
-        btnNext.append(btnNextIcon);
-        btnNext.addEventListener("click", () => Game.changeCharacter(1, tam, char))
-        
-        const btnPrev = createBtn();
-        const btnPrevIcon = createImg();
-        btnPrevIcon.src = `../assets/icons/arrow_back.svg`
-        btnPrev.classList.add("btnPrev");
-        btnPrev.append(btnPrevIcon);
-        btnPrev.addEventListener("click", () => Game.changeCharacter(-1, tam, char))
-
-        const characterContainer = createDiv();
-        characterContainer.classList.add("characterContainer");
-
-        const tam = createImg();
-        tam.src = `../assets/img/tam${Game.currentCharacterIndex + 1}.svg`;
-        tam.classList.add("tam");
-
-        let fileFormat = Game.currentCharacterIndex === 1 ? "webp" : "png";
-
-        const char = createImg();
-        char.src = `../assets/img/characters/char${Game.currentCharacterIndex + 1}.${fileFormat}`
-        char.classList.add("char");
-
-
-        characterContainer.append(tam, char)
-        tamContainer.append(btnPrev, characterContainer, btnNext);
+    static removeAllButtonFunction() {
+        document.querySelectorAll("button").forEach(btn => {
+            btn.onclick = null;
+          });
     }
 
-    static changeCharacter(direction: number, tam: HTMLImageElement, char: HTMLImageElement){
-        Game.currentCharacterIndex += direction;
+    static generateLevelSelection() {
 
-        
-        
-        
-        if(Game.currentCharacterIndex < 0){
-            Game.currentCharacterIndex = Game.characters.length -1;
-        } else if (Game.currentCharacterIndex >= Game.characters.length){
-            Game.currentCharacterIndex = 0;
-        }
+        Game.removeAllButtonFunction();
 
-        const fileFormat = Game.currentCharacterIndex === 1 ? "webp" : "png";
-        const newCharSrc = `../assets/img/characters/char${Game.currentCharacterIndex + 1}.${fileFormat}`;
-        const newTamSrc = `../assets/img/tam${Game.currentCharacterIndex + 1}.svg`;
-        
-        
-   
-        const newChar = new Image();
-        const newTam = new Image();
+        document.querySelector("h1")?.remove();
+        const levelSelectionCon = createDiv();
+        levelSelectionCon.classList.add("levelSelectionCon");
+        const glass = createImg();
+        glass.src = "../assets/img/glass.svg"
 
-        let loaded = 0;
+        const level = document.createElement("h2");
+        level.classList.add("level");
+        level.innerText = "Select your Difficulty - Easy mode"
+        const selectionDivRight = createDiv();
+        selectionDivRight.classList.add("selectionDivRight");
+        const selectionDivLeft = createDiv();
+        selectionDivLeft.classList.add("selectionDivLeft");
 
-        const onLoad = () => {
-            loaded++;
+        levelSelectionCon.append(glass, selectionDivLeft, selectionDivRight);
+        const startContent = document.querySelector(".startCont")
+        startContent?.prepend(level, levelSelectionCon);
 
-            if (loaded === 2) {
+        const prevBtn = document.querySelector("leftBtn");
+        const nextBtn = document.querySelector("rightBtn");
+        // prevBtn.onclick = 
 
-                char.src = newChar.src;
-                tam.src = newTam.src;
-
-                Game.currentCharacterIndex === 2 
-                    ? char.classList.add("yoda") 
-                    : char.classList.remove("yoda");
-                
-                const characterSelection = document.querySelector(".characterSelection") as HTMLButtonElement;
-                characterSelection && (characterSelection.className = (`btn characterSelection ${Game.characters[Game.currentCharacterIndex]}`));
-                characterSelection && (characterSelection.innerText = `Choose ${Game.characterNames[Game.currentCharacterIndex]}!`);
-            }
-        }
-
-        newChar.onload = onLoad;
-        newTam.onload = onLoad;
-
-        newChar.src = newCharSrc;
-        newTam.src = newTamSrc;
-    };
-    
-
-    static generateTam(animalName:AnimalName, animalType: AnimalType){
-        TamaguchiCount++;
-        const tam = new Tamaguchi (animalName = animalName, animalType = animalType);
-        if (!root) return;
-        root.innerHTML = "";
-
-        const characterContainer = createDiv();
-        characterContainer.classList.add("characterContainer");
-
-        const tamImg = createImg();
-        tamImg.src = `../assets/img/tam${Game.currentCharacterIndex + 1}.svg`;
-        tamImg.classList.add("tam");
-
-        let fileFormat = Game.currentCharacterIndex === 1 ? "webp" : "png";
-
-        const char = createImg();
-        char.src = `../assets/img/characters/char${Game.currentCharacterIndex + 1}.${fileFormat}`
-        char.classList.add("char");
-
-
-        Game.currentCharacterIndex === 2 
-            ? char.classList.add("yoda") 
-            : char.classList.remove("yoda");
-
-        
-        const napBtn = createBtn();
-        napBtn.classList.add("action", "napBtn");
-        const playBtn = createBtn();
-        playBtn.classList.add("action","playBtn");
-        const eatBtn = createBtn();
-        eatBtn.classList.add("action","eatBtn");
-
-        const btnNapIcon = createImg();
-        btnNapIcon.src = `../assets/icons/moon.svg`;
-        btnNapIcon.classList.add("btnNapIcon");
-        napBtn.append(btnNapIcon);
-        napBtn.addEventListener("click", () => (tam.nap))
-       
-        const btnPlayIcon = createImg();
-        btnPlayIcon.src = `../assets/icons/tennis.svg`;
-        btnPlayIcon.classList.add("btnPlayIcon");
-        playBtn.append(btnPlayIcon);
-        playBtn.addEventListener("click", () => (tam.play))
-        
-        const btnEatIcon = createImg();
-        btnEatIcon.src = `../assets/icons/fork.svg`;
-        btnEatIcon.classList.add("btnEatIcon");
-        eatBtn.append(btnEatIcon);
-        eatBtn.addEventListener("click", () => (tam.eat))
-        
-        const controlBtnContainer = createDiv();
-        controlBtnContainer.classList.add("controlBtnContainer");
-        controlBtnContainer.append(napBtn, playBtn, eatBtn);
-
-        const tamContainer = createDiv();
-        tamContainer.classList.add("tamContainer");
-
-        characterContainer.append(tamImg, char, controlBtnContainer);
-        tamContainer.append(characterContainer);
-        root.append(tamContainer);
-        // console.log(tam);
     }
 }
 
 let activityHistory: string[] = [];
 
-Game.generateStartBtn();
 
 const generateBtn = document.querySelector("#generateTamaguchi");
