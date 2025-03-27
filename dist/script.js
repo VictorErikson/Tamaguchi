@@ -150,29 +150,29 @@ class Game {
         }
         const selectionDivLeft = document.querySelector(".selectionDivLeft");
         const selectionDivRight = document.querySelector(".selectionDivRight");
-        const levelText = document.querySelector(".level");
+        const modeLabel = document.querySelector(".mode-label");
         const body = document.querySelector("body");
-        if (selectionDivLeft && selectionDivRight && levelText && body) {
+        if (selectionDivLeft && selectionDivRight && modeLabel && body) {
             if (Game.currentLevelIndex === 0) {
                 selectionDivLeft.className = "selectionDivLeft";
                 selectionDivRight.className = "selectionDivRight";
-                levelText.className = "level";
-                levelText.innerText = "Select your Difficulty - Easy mode";
+                modeLabel.className = "mode-label";
+                modeLabel.innerText = "Easy";
                 body.className = "";
             }
             else if (Game.currentLevelIndex === 1) {
                 selectionDivLeft.className = "selectionDivLeft medium";
                 selectionDivRight.className = "selectionDivRight medium";
-                levelText.className = "level medium";
+                modeLabel.className = "mode-label medium";
                 body.className = "medium";
-                levelText.innerText = "Select your Difficulty - Normal mode";
+                modeLabel.innerText = "Normal";
             }
             else if (Game.currentLevelIndex === 2) {
                 selectionDivLeft.className = "selectionDivLeft hard";
                 selectionDivRight.className = "selectionDivRight hard";
-                levelText.className = "level hard";
+                modeLabel.className = "mode-label hard";
                 body.className = "hard";
-                levelText.innerText = "Select your Difficulty - Hardcore mode";
+                modeLabel.innerText = "Hardcore";
             }
         }
     }
@@ -183,6 +183,17 @@ class Game {
         if (!track)
             return;
         Game.currentCharacterIndex += direction;
+        let heroName = document.querySelector(".heroName");
+        let nameIndex = Game.currentCharacterIndex - 1;
+        if (Game.currentCharacterIndex === 0) {
+            nameIndex = Game.characterNames.length - 1;
+        }
+        else if (Game.currentCharacterIndex === Game.characterNames.length + 1) {
+            nameIndex = 0;
+        }
+        if (heroName) {
+            heroName.innerText = `${Game.characterNames[nameIndex]}`;
+        }
         track.style.transition = "transform 0.4s ease-in-out";
         track.style.transform = `translateX(-${Game.currentCharacterIndex * itemWidth}px)`;
         track.addEventListener("transitionend", function handleTransition() {
@@ -215,12 +226,21 @@ class Game {
         const glass = createImg();
         glass.src = "../assets/img/glass.svg";
         windowCont.append(glass);
-        section_8bit.append(windowCont);
+        const title = document.createElement("h2");
+        title.classList.add("titleHeroSelection");
+        title.innerText = "Hero selection";
+        const heroNameCont = createDiv();
+        heroNameCont.classList.add("heroNameCont");
+        const heroName = document.createElement("h2");
+        heroName.innerText = "Spartacus";
+        heroName.classList.add("heroName");
+        heroNameCont.append(heroName);
+        section_8bit.append(windowCont, title);
         const carouselTrack = createDiv();
         carouselTrack.classList.add("carousel-track");
         windowCont.append(carouselTrack);
-        const title = document.createElement("h2");
-        title.innerText = "Hero selection";
+        // const mode = document.createElement("h2");
+        // title.innerText = "Hero selection";
         const characterList = [...Game.characterNames];
         const firstClone = characterList[0];
         const lastClone = characterList[characterList.length - 1];
@@ -242,7 +262,7 @@ class Game {
         const startBtn = document.querySelector(".startBtn");
         startBtn && (startBtn.onclick = Game.generateHeroSelection);
         const startContent = document.querySelector(".startCont");
-        startContent?.prepend(title, section_8bit);
+        startContent?.prepend(heroNameCont, section_8bit);
     }
     static generateIngameContent() {
         const mode = document.createElement("h2");
@@ -267,13 +287,16 @@ class Game {
         glass.src = "../assets/img/glass.svg";
         const level = document.createElement("h2");
         level.classList.add("level");
-        level.innerText = "Select your Difficulty - Easy mode";
+        level.innerText = "Press START to select Difficulty";
+        const mode = document.createElement("h2");
+        mode.classList.add("mode");
+        mode.innerHTML = `Mode: <span class="mode-label">Easy</span>`;
         const selectionDivRight = createDiv();
         selectionDivRight.classList.add("selectionDivRight");
         const selectionDivLeft = createDiv();
         selectionDivLeft.classList.add("selectionDivLeft");
         levelSelectionCon.append(glass, selectionDivLeft, selectionDivRight);
-        section_8bit.append(levelSelectionCon);
+        section_8bit.append(levelSelectionCon, mode);
         const startContent = document.querySelector(".startCont");
         startContent?.prepend(level, section_8bit);
         const prevBtn = document.querySelector(".leftBtn");
@@ -285,7 +308,7 @@ class Game {
     }
 }
 Game.characters = ["spartan", "alien", "yoda", "dog"];
-Game.characterNames = ["Leonidas", "E.T.", "Yoda", "Ebba Green"];
+Game.characterNames = ["Spartacus", "E.T.", "Yoda", "Ebba Green"];
 Game.currentLevelIndex = 0;
 Game.currentCharacterIndex = 0;
 let activityHistory = [];
