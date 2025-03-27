@@ -49,7 +49,7 @@ button {
   color: rgb(255, 255, 255);
   padding-bottom: 10%;
 }
-#root .startCont .fullController {
+#root .startCont .startAnimController {
   animation: slideIn 4s ease-out forwards;
 }
 @keyframes slideIn2 {
@@ -223,10 +223,14 @@ button {
   box-shadow: -2px 1px 0px 3px #ebe392 inset;
 }
 
-.levelSelectionCon {
+:root {
+  --pixel-border: #E3E1E4; /* Inner border color: */
+  --pixel: .225rem; /* Pixel size */
+}
+
+.windowCont {
   width: 380px;
   height: 415px;
-  background-image: url("./assets/img/levelSelection.png");
   background-size: 120%;
   background-repeat: no-repeat;
   background-position: center;
@@ -238,47 +242,43 @@ button {
   box-shadow: inset 0 10px 8px rgba(0, 0, 0, 0.6);
   border-left: 15px solid #E3E1E4;
   border-right: 15px solid #E3E1E4;
+  box-shadow: calc(var(--pixel) * -1) 0 0 0 var(--pixel-border), var(--pixel) 0 0 0 var(--pixel-border), 0 calc(var(--pixel) * -2) 0 0 var(--pixel-border), 0 calc(var(--pixel) * 2) 0 0 var(--pixel-border), 0 calc(var(--pixel) * -5) 0 calc(var(--pixel) * -1) var(--pixel-border), 0 calc(var(--pixel) * 5) 0 calc(var(--pixel) * -1) var(--pixel-border), 0 calc(var(--pixel) * -7) 0 calc(var(--pixel) * -2) var(--pixel-border), 0 calc(var(--pixel) * 7) 0 calc(var(--pixel) * -2) var(--pixel-border), 0 calc(var(--pixel) * -10) 0 calc(var(--pixel) * -4) var(--pixel-border), 0 calc(var(--pixel) * 10) 0 calc(var(--pixel) * -4) var(--pixel-border), 0 calc(var(--pixel) * -13) 0 calc(var(--pixel) * -6) var(--pixel-border), 0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-border);
 }
-.levelSelectionCon img {
+.windowCont img {
   position: absolute;
   height: 110%;
+  z-index: 1;
 }
-.levelSelectionCon .selectionDivRight {
+.windowCont .selectionDivRight {
   background: rgba(0, 0, 0, 0.6);
   border: none;
   height: 100%;
   width: 70%;
   align-self: flex-end;
 }
-.levelSelectionCon .selectionDivRight.medium {
+.windowCont .selectionDivRight.medium {
   width: 30%;
 }
-.levelSelectionCon .selectionDivRight.hard {
+.windowCont .selectionDivRight.hard {
   width: 0%;
 }
-.levelSelectionCon .selectionDivLeft {
+.windowCont .selectionDivLeft {
   background: rgba(0, 0, 0, 0);
   border: none;
   height: 100%;
   width: 30%;
   align-self: flex-start;
 }
-.levelSelectionCon .selectionDivLeft.medium {
+.windowCont .selectionDivLeft.medium {
   background: rgba(0, 0, 0, 0.6);
 }
-.levelSelectionCon .selectionDivLeft.hard {
+.windowCont .selectionDivLeft.hard {
   background: rgba(0, 0, 0, 0.6);
   width: 70%;
 }
 
-:root {
-  --pixel-border: #E3E1E4; /* Inner border color: */
-  --pixel: .225rem; /* Pixel size */
-}
-
 .levelSelectionCon {
   background-image: url("./assets/img/levelSelection.png");
-  box-shadow: calc(var(--pixel) * -1) 0 0 0 var(--pixel-border), var(--pixel) 0 0 0 var(--pixel-border), 0 calc(var(--pixel) * -2) 0 0 var(--pixel-border), 0 calc(var(--pixel) * 2) 0 0 var(--pixel-border), 0 calc(var(--pixel) * -5) 0 calc(var(--pixel) * -1) var(--pixel-border), 0 calc(var(--pixel) * 5) 0 calc(var(--pixel) * -1) var(--pixel-border), 0 calc(var(--pixel) * -7) 0 calc(var(--pixel) * -2) var(--pixel-border), 0 calc(var(--pixel) * 7) 0 calc(var(--pixel) * -2) var(--pixel-border), 0 calc(var(--pixel) * -10) 0 calc(var(--pixel) * -4) var(--pixel-border), 0 calc(var(--pixel) * 10) 0 calc(var(--pixel) * -4) var(--pixel-border), 0 calc(var(--pixel) * -13) 0 calc(var(--pixel) * -6) var(--pixel-border), 0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-border);
 }
 
 .level {
@@ -290,4 +290,33 @@ button {
 }
 .level.hard {
   color: red;
+}
+
+.carousel {
+  width: 380px; /* fixed width */
+  overflow: hidden;
+  position: relative;
+}
+.carousel .carousel-track {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+  will-change: transform;
+}
+.carousel .carousel-track .carousel-item {
+  flex: 0 0 380px;
+  height: 415px;
+  background-size: cover;
+  background-position: center;
+}
+.carousel .carousel-track .Leonidas {
+  background-image: url("./assets/img/characters/8bit/spartan.png");
+}
+.carousel .carousel-track .ET {
+  background-image: url("./assets/img/characters/8bit/alien.png");
+}
+.carousel .carousel-track .Yoda {
+  background-image: url("./assets/img/characters/8bit/yoda.png");
+}
+.carousel .carousel-track .Ebba-Green {
+  background-image: url("./assets/img/characters/8bit/dog.png");
 }/*# sourceMappingURL=style.css.map */

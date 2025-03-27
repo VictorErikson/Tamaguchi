@@ -79,8 +79,10 @@ class Tamaguchi {
 const createBtn = () => document.createElement("button");
 const createDiv = () => document.createElement("div");
 const createImg = () => document.createElement("img");
+const createP = () => document.createElement("p");
 
 const root:HTMLDivElement | null = document.querySelector("#root")
+const startCont:HTMLDivElement | null = document.querySelector(".startCont");
 let TamaguchiCount = 0;
 
 class Game {
@@ -88,6 +90,7 @@ class Game {
     static characterNames: CharacterName[] = ["Leonidas", "E.T.", "Yoda", "Ebba Green"];
     static currentLevelIndex = 0;
     static currentCharacterIndex = 0;
+
 
     static generateSNESControl() {
         const controllerBase = createDiv();
@@ -162,7 +165,7 @@ class Game {
         
         
         
-        root === null || root === void 0 ? void 0 : root.append(fullController);
+        startCont === null || startCont === void 0 ? void 0 : startCont.append(fullController);
     }
 
     static removeAllButtonFunction() {
@@ -208,6 +211,114 @@ class Game {
         }
     }
 
+    static changeCharacter(direction: number) {
+
+        const track = document.querySelector(".carousel-track") as HTMLDivElement;
+        const itemWidth = 380;
+        const totalItems = Game.characterNames.length;
+        if (!track) return;
+
+        Game.currentCharacterIndex += direction;
+
+
+        track.style.transition = "transform 0.4s ease-in-out";
+        track.style.transform = `translateX(-${Game.currentCharacterIndex * itemWidth}px)`;
+    
+        track.addEventListener("transitionend", function handleTransition() {
+            track.removeEventListener("transitionend", handleTransition);
+    
+            if (Game.currentCharacterIndex === 0) {
+                track.style.transition = "none";
+                Game.currentCharacterIndex = totalItems;
+                track.style.transform = `translateX(-${Game.currentCharacterIndex * itemWidth}px)`;
+            }
+    
+            if (Game.currentCharacterIndex === totalItems + 1) {
+                track.style.transition = "none";
+                Game.currentCharacterIndex = 1;
+                track.style.transform = `translateX(-${Game.currentCharacterIndex * itemWidth}px)`;
+            }
+        });
+
+    }
+
+    static createCharacterItem(character: CharacterName): HTMLDivElement {
+        const item = createDiv();
+        const nameClass = character.replaceAll(" ", "-").replaceAll(".", "");
+        item.classList.add("carousel-item", nameClass);
+        return item;
+    }
+
+    static generateHeroSelection() {
+        startCont && (startCont.innerHTML = "");
+
+        Game.generateSNESControl();
+
+        const section_8bit = document.createElement("section");
+        section_8bit.classList.add("section_8bit")
+
+        const windowCont = createDiv();
+        windowCont.classList.add("windowCont", "wrapper", "carousel");
+
+        const glass = createImg();
+        glass.src = "../assets/img/glass.svg"
+        windowCont.append(glass);
+        section_8bit.append(windowCont);
+
+        const carouselTrack = createDiv();
+        carouselTrack.classList.add("carousel-track");
+        windowCont.append(carouselTrack);
+
+        const title = document.createElement("h2");
+        title.innerText = "Hero selection";
+
+
+        const characterList = [...Game.characterNames];
+        const firstClone = characterList[0];
+        const lastClone = characterList[characterList.length - 1];
+
+        // Add clone of last
+        carouselTrack.append(Game.createCharacterItem(lastClone));
+
+        // Add real items
+        characterList.forEach(character => {
+            carouselTrack.append(Game.createCharacterItem(character));
+        });
+
+        // Add clone of first
+        carouselTrack.append(Game.createCharacterItem(firstClone));
+
+        // Start on first real item
+        Game.currentCharacterIndex = 1;
+        carouselTrack.style.transform = `translateX(-${Game.currentCharacterIndex * 380}px)`;
+
+
+        
+
+        const prevBtn:HTMLButtonElement | null = document.querySelector(".leftBtn");
+        const nextBtn:HTMLButtonElement | null = document.querySelector(".rightBtn");
+        prevBtn && (prevBtn.onclick = () => Game.changeCharacter(-1))
+        nextBtn && (nextBtn.onclick = () => Game.changeCharacter(1))
+
+        const startBtn:HTMLButtonElement | null = document.querySelector(".startBtn");
+        startBtn && (startBtn.onclick = Game.generateHeroSelection) 
+
+        
+        const startContent = document.querySelector(".startCont")
+        startContent?.prepend(title, section_8bit);
+    }
+
+    static generateIngameContent() {
+        const mode = document.createElement("h2");
+        if(Game.currentLevelIndex===0){
+            mode.innerText = "Easy"
+        }else if(Game.currentLevelIndex === 1){
+            mode.innerText = "Medium"
+        } else{
+            mode.innerText = "Hardcore"
+        }
+    }
+
     static generateLevelSelection() {
 
         Game.removeAllButtonFunction();
@@ -217,7 +328,7 @@ class Game {
         section_8bit.classList.add("section_8bit")
 
         const levelSelectionCon = createDiv();
-        levelSelectionCon.classList.add("levelSelectionCon", "wrapper");
+        levelSelectionCon.classList.add("levelSelectionCon", "wrapper", "windowCont");
         const glass = createImg();
         glass.src = "../assets/img/glass.svg"
 
@@ -238,6 +349,9 @@ class Game {
         const nextBtn:HTMLButtonElement | null = document.querySelector(".rightBtn");
         prevBtn && (prevBtn.onclick = () => Game.changeMode(-1))
         nextBtn && (nextBtn.onclick = () => Game.changeMode(1))
+
+        const startBtn:HTMLButtonElement | null = document.querySelector(".startBtn");
+        startBtn && (startBtn.onclick = Game.generateHeroSelection) 
     }
 }
 

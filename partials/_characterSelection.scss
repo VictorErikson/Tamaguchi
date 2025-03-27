@@ -1,0 +1,47 @@
+.carousel {
+    width: 380px; /* fixed width */
+    overflow: hidden;
+    position: relative;
+
+    .carousel-track {
+        display: flex;
+        transition: transform 0.4s ease-in-out;
+        will-change: transform;
+        // width: 1520px; /* 4 items × 300px */
+
+        .carousel-item {
+            flex: 0 0 380px;
+            height: 415px;
+            background-size: cover;
+            background-position: center;
+            // text-align: center;
+            // line-height: 200px;
+            // font-size: 2rem;
+        }
+
+        .Leonidas{
+            background-image: url("./assets/img/characters/8bit/spartan.png");
+        }
+        
+        .ET{
+            background-image: url("./assets/img/characters/8bit/alien.png");
+            
+        }
+        
+        .Yoda{
+            background-image: url("./assets/img/characters/8bit/yoda.png");
+            
+        }
+        .Ebba-Green{
+            background-image: url("./assets/img/characters/8bit/dog.png");
+
+        }
+    }
+}
+  
+
+
+
+
+
+  
