@@ -1,6 +1,5 @@
 type CharacterType = "spartan" | "alien" | "yoda" | "dog";
 type CharacterName = "Spartacus" | "E.T." | "Yoda" | "Ebba Green";
-type Mode = "easy" | "medium" | "hard";
 
 
 class Tamaguchi {
@@ -9,9 +8,9 @@ class Tamaguchi {
     energy: number;
     fullness: number;
     happiness: number;
-    mode: Mode;
+    mode: number;
     
-    constructor(name: string, character: CharacterType, mode: Mode){
+    constructor(name: string, character: CharacterType, mode: number){
         this.name = name;
         this.character = character;
         this.energy = 50;
@@ -28,6 +27,8 @@ class Tamaguchi {
         this.fullness -= 10;
 
         activityHistory.push(`${this.name} takes a nap and restores some energy`);
+
+        this.updateBars();
     }
     
     play(){
@@ -42,6 +43,8 @@ class Tamaguchi {
         }else if (this.character === "dog"){
             activityHistory.push(`${this.name} Starts playing some guitar. Sounds great! 🎸🎵`);
         }else{activityHistory.push(`${this.name} starts playing`);}
+
+        this.updateBars();
     }
     
     eat(){
@@ -54,13 +57,15 @@ class Tamaguchi {
         } else {
         activityHistory.push(`${this.name} starts eating a delicious meal. 🍕🍎`);
         }
+
+        this.updateBars();
     }
 
     private startLoop(): void {
         let time = 0;
-        if (this.mode === "easy"){ 
+        if (this.mode === 0){ 
             time = 10000
-        }else if(this.mode === "medium"){
+        }else if(this.mode === 1){
             time = 5000
         }else{time = 1000}
         setInterval(() => {
@@ -72,6 +77,13 @@ class Tamaguchi {
         this.energy -= 15;
         this.fullness -= 15;
         this.happiness -= 15;
+        this.updateBars();
+    }
+
+    private updateBars(): void {
+        Game.updateEnergy(this.energy)
+        Game.updateFullness(this.fullness)
+        Game.updateHappiness(this.happiness)
     }
 
 }
@@ -86,10 +98,11 @@ const startCont:HTMLDivElement | null = document.querySelector(".startCont");
 let TamaguchiCount = 0;
 
 class Game {
-    static characters : CharacterType[] = ["spartan", "alien", "yoda", "dog"];
+    static characters: CharacterType[] = ["spartan", "alien", "yoda", "dog"];
     static characterNames: CharacterName[] = ["Spartacus", "E.T.", "Yoda", "Ebba Green"];
     static currentLevelIndex = 0;
     static currentCharacterIndex = 0;
+    static activeCharacters: CharacterType[] = []
 
 
     static generateSNESControl() {
@@ -291,13 +304,6 @@ class Game {
         carouselTrack.classList.add("carousel-track");
         windowCont.append(carouselTrack);
 
-        
-        
-        // const mode = document.createElement("h2");
-        // title.innerText = "Hero selection";
-
-
-
         const characterList = [...Game.characterNames];
         const firstClone = characterList[0];
         const lastClone = characterList[characterList.length - 1];
@@ -326,14 +332,148 @@ class Game {
         nextBtn && (nextBtn.onclick = () => Game.changeCharacter(1))
 
         const startBtn:HTMLButtonElement | null = document.querySelector(".startBtn");
-        startBtn && (startBtn.onclick = Game.generateHeroSelection) 
+        const selectBtn:HTMLButtonElement | null = document.querySelector(".selectBtn");
+        startBtn && (startBtn.onclick = () => Game.countdown(3, Game.generateIngameContent)) 
+        selectBtn && (selectBtn.onclick = () => Game.countdown(3, Game.generateIngameContent)) 
 
         
         const startContent = document.querySelector(".startCont")
         startContent?.prepend(heroNameCont, section_8bit);
     }
 
+    static countdown(startNmbr: number, runFunction: () => void) {
+        const startCont = document.querySelector(".startCont") as HTMLDivElement;
+        startCont && (startCont.innerHTML = "");
+
+        let count = startNmbr;
+        let countdownNmbr = document.createElement("h1");
+        countdownNmbr.classList.add("countdownNmbr")
+        countdownNmbr.innerText = `${count}`;
+
+        startCont.append(countdownNmbr);
+        Game.generateSNESControl();
+
+        const interval = setInterval(() => {
+            count--;
+            if(count === 0){
+                countdownNmbr.innerText = `START`;
+            }else if(count < 0){
+                clearInterval(interval);
+                runFunction();
+            }else{
+                countdownNmbr.innerText = `${count}`;
+            }
+
+            
+        }, 1000);
+    }
+    static generateHeroBox() {
+        
+        const section_8bit = document.createElement("section");
+        section_8bit.classList.add("section_8bit")
+
+        const levelSelectionCon = createDiv();
+        levelSelectionCon.classList.add("wrapper", "windowCont");
+        const glass = createImg();
+        glass.src = "../assets/img/glass.svg"
+        levelSelectionCon.append(glass);
+        section_8bit.append(levelSelectionCon)
+        return(section_8bit)
+
+    }
+    static generateTextbox() {
+
+        const textbox = createDiv();
+        textbox.classList.add("textbox");
+        const textUl = document.createElement("ul");
+        textUl.classList.add("textUl");
+
+        return textbox;
+    }
+
+    static updateEnergy(percentage:number) {
+        const energyFill: HTMLDivElement | null = document.querySelector(".energyFill");
+        energyFill && (energyFill.style.width = `${percentage}%`);
+    }
+
+    static updateHappiness(percentage:number) {
+        const happinessFill: HTMLDivElement | null = document.querySelector(".happinessFill");
+        happinessFill && (happinessFill.style.width = `${percentage}%`);
+    }
+
+    static updateFullness(percentage:number) {
+        const fullnessFill: HTMLDivElement | null = document.querySelector(".fullnessFill");
+        fullnessFill && (fullnessFill.style.width = `${percentage}%`);
+    }
+    
+    static generateStatBars() {
+        const statsCont = createDiv();
+        statsCont.classList.add("statsCont");
+
+        const energyCont = createDiv();
+        energyCont.classList.add("energyCont");
+        const energyImg = createImg();
+        energyImg.classList.add("energyImg", "barSymbol")
+        const energyBar = createDiv();
+        energyBar.classList.add("energyBar", "bar");
+        const energyFill = createDiv();
+        energyFill.classList.add("energyFill", "fill");
+        energyBar.append(energyFill);
+        energyCont.append(energyImg, energyBar);
+        
+        const happinessCont = createDiv();
+        happinessCont.classList.add("happinessCont");
+        const happinessImg = createImg();
+        happinessImg.classList.add("happinessImg", "barSymbol");
+        const happinessBar = createDiv();
+        happinessBar.classList.add("happinessBar", "bar");
+        const happinessFill = createDiv();
+        happinessFill.classList.add("happinessFill", "fill");
+        happinessBar.append(happinessFill);
+        happinessCont.append(happinessImg, happinessBar);
+
+        const fullnessCont = createDiv();
+        fullnessCont.classList.add("fullnessCont");
+        const fullnessImg = createImg();
+        fullnessImg.classList.add("fullnessImg", "barSymbol");
+        const fullnessBar = createDiv();
+        fullnessBar.classList.add("fullnessBar", "bar");
+        const fullnessFill = createDiv();
+        fullnessFill.classList.add("fullnessFill", "fill");
+        fullnessBar.append(fullnessFill);
+        fullnessCont.append(fullnessImg, fullnessBar);
+
+
+        statsCont.append(energyCont, happinessCont, fullnessCont)
+
+        return statsCont;
+    }
+
+    static generateSmallHeroMenu() {
+
+        const smallHeroMenuCont = createDiv();
+        smallHeroMenuCont.classList.add("smallHeroMenuCont");
+
+        Game.characters.forEach(char => {
+            const charBtn = createBtn();
+            charBtn.classList.add("charBtn", `${char}`)
+            charBtn.style.backgroundImage = `url("assets/img/characters/8bit/${char}.png")`;
+            Game.activeCharacters.includes(char) && charBtn.classList.add("disabled");
+
+            smallHeroMenuCont.append(charBtn);
+        })
+
+        return smallHeroMenuCont;
+    }
+
+
     static generateIngameContent() {
+        const startCont = document.querySelector(".startCont")
+        startCont && (startCont.innerHTML = "");
+        Game.activeCharacters.push(Game.characters[Game.currentCharacterIndex])
+        Game.generateSNESControl();
+
+        const startHero = new Tamaguchi(Game.characterNames[Game.currentCharacterIndex], Game.characters[Game.currentCharacterIndex], Game.currentLevelIndex);
         const mode = document.createElement("h2");
         if(Game.currentLevelIndex===0){
             mode.innerText = "Easy"
@@ -342,21 +482,36 @@ class Game {
         } else{
             mode.innerText = "Hardcore"
         }
+        const filler = createDiv();
+        filler.classList.add("fillerBox");
+
+        const textbox = Game.generateTextbox();
+        const heroBox = Game.generateHeroBox();
+        const statBars = Game.generateStatBars();
+
+        const heroCont = createDiv();
+        heroCont.classList.add("heroCont");
+        heroCont.append(heroBox, statBars);
+
+        const smallHeroMenu:HTMLDivElement = Game.generateSmallHeroMenu(); 
+        const gameCont = createDiv();
+        gameCont.classList.add("gameCont");
+
+        gameCont.append(textbox, heroCont, filler)
+
+        startCont?.prepend(smallHeroMenu, gameCont)
+        
+        // startCont?.prepend();
     }
+    
 
     static generateLevelSelection() {
 
         Game.removeAllButtonFunction();
 
         document.querySelector("h1")?.remove();
-        const section_8bit = document.createElement("section");
-        section_8bit.classList.add("section_8bit")
-
-        const levelSelectionCon = createDiv();
-        levelSelectionCon.classList.add("levelSelectionCon", "wrapper", "windowCont");
-        const glass = createImg();
-        glass.src = "../assets/img/glass.svg"
-
+      
+        const section_8bit = Game.generateHeroBox();
         const level = document.createElement("h2");
         level.classList.add("level");
         level.innerText = "Press START to select Difficulty"
@@ -369,10 +524,12 @@ class Game {
         const selectionDivLeft = createDiv();
         selectionDivLeft.classList.add("selectionDivLeft");
 
-        levelSelectionCon.append(glass, selectionDivLeft, selectionDivRight);
-        section_8bit.append(levelSelectionCon, mode);
         const startContent = document.querySelector(".startCont")
         startContent?.prepend(level, section_8bit);
+        const levelSelectionCon:HTMLDivElement | null = document.querySelector(".windowCont");
+        levelSelectionCon?.classList.add("levelSelectionCon")
+        levelSelectionCon?.append(selectionDivLeft, selectionDivRight);
+        levelSelectionCon && (section_8bit.append(levelSelectionCon, mode));
 
         const prevBtn:HTMLButtonElement | null = document.querySelector(".leftBtn");
         const nextBtn:HTMLButtonElement | null = document.querySelector(".rightBtn");

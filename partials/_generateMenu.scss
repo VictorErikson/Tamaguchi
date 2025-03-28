@@ -10,18 +10,18 @@
     overflow: hidden;
 
     .startCont{
-        
+        width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         min-height: 500px;
-        padding-bottom: 10%;        
+        // padding-bottom: 10%;        
         gap: 20px;
-        
-        h1{
-            animation: slideIn2 4s ease-out forwards, blink 4s step-start infinite 4.5s;
+
+        .startTitle{
+            animation: slideIn2 4s ease-out forwards, startBlink 4s step-start infinite 4.5s;
             color: rgb(255, 255, 255);
             padding-bottom: 10%;
         }
@@ -48,7 +48,7 @@
         }
     }
 
-    @keyframes blink {
+    @keyframes startBlink {
         0%, 20% {
             color: rgb(255, 255, 255);
           }

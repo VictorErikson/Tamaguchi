@@ -36,17 +36,17 @@ button {
   overflow: hidden;
 }
 #root .startCont {
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 500px;
-  padding-bottom: 10%;
   gap: 20px;
 }
-#root .startCont h1 {
-  animation: slideIn2 4s ease-out forwards, blink 4s step-start infinite 4.5s;
+#root .startCont .startTitle {
+  animation: slideIn2 4s ease-out forwards, startBlink 4s step-start infinite 4.5s;
   color: rgb(255, 255, 255);
   padding-bottom: 10%;
 }
@@ -69,7 +69,7 @@ button {
     transform: translateY(0);
   }
 }
-@keyframes blink {
+@keyframes startBlink {
   0%, 20% {
     color: rgb(255, 255, 255);
   }
@@ -409,4 +409,68 @@ button {
 }
 .carousel .carousel-track .Ebba-Green {
   background-image: url("./assets/img/characters/8bit/dog.png");
+}
+
+.smallHeroMenuCont {
+  display: flex;
+  gap: 15px;
+  align-self: flex-end;
+  position: absolute;
+  top: 10px;
+  right: 40px;
+}
+.smallHeroMenuCont button {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  background-size: 160%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 2px solid black;
+}
+.smallHeroMenuCont button.spartan {
+  background-size: 260%;
+  background-position: -30px -5px;
+}
+.smallHeroMenuCont button.alien {
+  background-position: -13px -17px;
+}
+.smallHeroMenuCont button.yoda {
+  background-position: -13px -17px;
+  background-size: 190%;
+}
+.smallHeroMenuCont button.dog {
+  background-size: 260%;
+  background-position: -30px -30px;
+}
+
+.gameCont {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 40px;
+}
+.gameCont .textbox, .gameCont .fillerBox {
+  width: 100%;
+  height: 100%;
+}
+.gameCont .fillerBox {
+  margin-right: 40px;
+}
+.gameCont .textbox {
+  margin-left: 40px;
+  background: #E3E1E4;
+  box-sizing: border-box;
+  overflow: hidden;
+  box-shadow: calc(var(--pixel) * -1) 0 0 0 var(--pixel-borderName), var(--pixel) 0 0 0 var(--pixel-borderName), 0 calc(var(--pixel) * -2) 0 0 var(--pixel-borderName), 0 calc(var(--pixel) * 2) 0 0 var(--pixel-borderName), 0 calc(var(--pixel) * -5) 0 calc(var(--pixel) * -1) var(--pixel-borderName), 0 calc(var(--pixel) * 5) 0 calc(var(--pixel) * -1) var(--pixel-borderName), 0 calc(var(--pixel) * -7) 0 calc(var(--pixel) * -2) var(--pixel-borderName), 0 calc(var(--pixel) * 7) 0 calc(var(--pixel) * -2) var(--pixel-borderName), 0 calc(var(--pixel) * -10) 0 calc(var(--pixel) * -4) var(--pixel-borderName), 0 calc(var(--pixel) * 10) 0 calc(var(--pixel) * -4) var(--pixel-borderName), 0 calc(var(--pixel) * -13) 0 calc(var(--pixel) * -6) var(--pixel-borderName), 0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-borderName);
+}
+.gameCont .textbox::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 56px;
+  width: 100%;
+  background: #E3E1E4;
+  z-index: 2;
 }/*# sourceMappingURL=style.css.map */
