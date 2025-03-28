@@ -411,6 +411,21 @@ button {
   background-image: url("./assets/img/characters/8bit/dog.png");
 }
 
+:root {
+  --pixel-border-text: #313131; /* Inner border color: */
+}
+
+.countdownNmbr {
+  font-size: 72px;
+  color: white;
+  animation: colorChange 0s 2s forwards;
+}
+
+@keyframes colorChange {
+  to {
+    color: red;
+  }
+}
 .smallHeroMenuCont {
   display: flex;
   gap: 15px;
@@ -464,18 +479,60 @@ button {
 }
 .gameCont .textbox {
   margin-left: 40px;
-  background: #E3E1E4;
+  background: #7E7C7F;
   box-sizing: border-box;
+  border-left: 20px solid #313131;
+  border-right: 20px solid #313131;
   overflow: hidden;
-  box-shadow: calc(var(--pixel) * -1) 0 0 0 var(--pixel-borderName), var(--pixel) 0 0 0 var(--pixel-borderName), 0 calc(var(--pixel) * -2) 0 0 var(--pixel-borderName), 0 calc(var(--pixel) * 2) 0 0 var(--pixel-borderName), 0 calc(var(--pixel) * -5) 0 calc(var(--pixel) * -1) var(--pixel-borderName), 0 calc(var(--pixel) * 5) 0 calc(var(--pixel) * -1) var(--pixel-borderName), 0 calc(var(--pixel) * -7) 0 calc(var(--pixel) * -2) var(--pixel-borderName), 0 calc(var(--pixel) * 7) 0 calc(var(--pixel) * -2) var(--pixel-borderName), 0 calc(var(--pixel) * -10) 0 calc(var(--pixel) * -4) var(--pixel-borderName), 0 calc(var(--pixel) * 10) 0 calc(var(--pixel) * -4) var(--pixel-borderName), 0 calc(var(--pixel) * -13) 0 calc(var(--pixel) * -6) var(--pixel-borderName), 0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-borderName);
+  background-image: url(/assets/img/textBackground/brick1.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: calc(var(--pixel) * -1) 0 0 0 var(--pixel-border-text), var(--pixel) 0 0 0 var(--pixel-border-text), 0 calc(var(--pixel) * -2) 0 0 var(--pixel-border-text), 0 calc(var(--pixel) * 2) 0 0 var(--pixel-border-text), 0 calc(var(--pixel) * -5) 0 calc(var(--pixel) * -1) var(--pixel-border-text), 0 calc(var(--pixel) * 5) 0 calc(var(--pixel) * -1) var(--pixel-border-text), 0 calc(var(--pixel) * -7) 0 calc(var(--pixel) * -2) var(--pixel-border-text), 0 calc(var(--pixel) * 7) 0 calc(var(--pixel) * -2) var(--pixel-border-text), 0 calc(var(--pixel) * -10) 0 calc(var(--pixel) * -4) var(--pixel-border-text), 0 calc(var(--pixel) * 10) 0 calc(var(--pixel) * -4) var(--pixel-border-text), 0 calc(var(--pixel) * -13) 0 calc(var(--pixel) * -6) var(--pixel-border-text), 0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-border-text);
 }
-.gameCont .textbox::after {
+.gameCont .textbox:after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   height: 56px;
   width: 100%;
-  background: #E3E1E4;
   z-index: 2;
+}
+.gameCont .heroCont .statsCont {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+.gameCont .heroCont .statsCont > div {
+  height: 40px;
+  display: flex;
+  gap: 10px;
+}
+.gameCont .heroCont .statsCont > div .barSymbol {
+  height: 48px;
+  width: 48px;
+}
+.gameCont .heroCont .statsCont > div .bar {
+  height: 100%;
+  width: 100%;
+  border-radius: 30px;
+}
+.gameCont .heroCont .statsCont > div .bar .fill {
+  height: calc(100% + 4px);
+  width: calc(50% + 4px);
+  transition: width 0.3s ease;
+  border: 4px solid #1f1f1f;
+}
+.gameCont .heroCont .statsCont > div .bar .happinessFill {
+  background-color: #d83b42;
+  box-shadow: 0px 12px 0px 0px #ee3a43 inset;
+}
+.gameCont .heroCont .statsCont > div .bar .energyFill {
+  background-color: #FEF165;
+  box-shadow: 0px 12px 0px 0px #f7ef9e inset;
+}
+.gameCont .heroCont .statsCont > div .bar .fullnessFill {
+  background-color: #5DDDAD;
+  box-shadow: 0px 12px 0px 0px #71e7bc inset;
 }/*# sourceMappingURL=style.css.map */

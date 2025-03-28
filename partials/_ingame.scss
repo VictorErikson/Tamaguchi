@@ -1,3 +1,19 @@
+:root {
+    --pixel-border-text: #313131; /* Inner border color: */
+}
+
+.countdownNmbr{
+    font-size: 72px;
+    color: white;
+    animation: colorChange 0s 2s forwards;
+
+}
+@keyframes colorChange {
+    to {
+      color: red;
+    }
+  }
+
 .smallHeroMenuCont{
     display: flex;
     gap: 15px;
@@ -57,19 +73,24 @@
     .textbox{
         // width: calc(100% - 40px);
         margin-left: 40px;
-        background: #E3E1E4;
+        background: #7E7C7F;
         box-sizing: border-box;
+        border-left: 20px solid #313131;
+        border-right: 20px solid #313131;
         overflow: hidden;
-        // margin-bottom: 120px;
+        background-image: url(/assets/img/textBackground/brick1.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
 
-        &::after {
+        &:after {
             content: "";
             position: absolute;
             bottom: 0;
             left: 0;
             height: 56px; 
             width: 100%;
-            background: #E3E1E4; 
+            // background: #E3E1E4; 
             z-index: 2; 
             
           }
@@ -78,17 +99,68 @@
         
             
         /* Pixel Border Layer 1 */
-            calc(var(--pixel) * -1) 0 0 0 var(--pixel-borderName),
-            var(--pixel) 0 0 0 var(--pixel-borderName),
-            0 calc(var(--pixel) * -2) 0 0 var(--pixel-borderName),
-            0 calc(var(--pixel) * 2) 0 0 var(--pixel-borderName),
-            0 calc(var(--pixel) * -5) 0 calc(var(--pixel) * -1) var(--pixel-borderName),
-            0 calc(var(--pixel) * 5) 0 calc(var(--pixel) * -1) var(--pixel-borderName),
-            0 calc(var(--pixel) * -7) 0 calc(var(--pixel) * -2) var(--pixel-borderName),
-            0 calc(var(--pixel) * 7) 0 calc(var(--pixel) * -2) var(--pixel-borderName),
-            0 calc(var(--pixel) * -10) 0 calc(var(--pixel) * -4) var(--pixel-borderName),
-            0 calc(var(--pixel) * 10) 0 calc(var(--pixel) * -4) var(--pixel-borderName),
-            0 calc(var(--pixel) * -13) 0 calc(var(--pixel) * -6) var(--pixel-borderName),
-            0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-borderName),
+            calc(var(--pixel) * -1) 0 0 0 var(--pixel-border-text),
+            var(--pixel) 0 0 0 var(--pixel-border-text),
+            0 calc(var(--pixel) * -2) 0 0 var(--pixel-border-text),
+            0 calc(var(--pixel) * 2) 0 0 var(--pixel-border-text),
+            0 calc(var(--pixel) * -5) 0 calc(var(--pixel) * -1) var(--pixel-border-text),
+            0 calc(var(--pixel) * 5) 0 calc(var(--pixel) * -1) var(--pixel-border-text),
+            0 calc(var(--pixel) * -7) 0 calc(var(--pixel) * -2) var(--pixel-border-text),
+            0 calc(var(--pixel) * 7) 0 calc(var(--pixel) * -2) var(--pixel-border-text),
+            0 calc(var(--pixel) * -10) 0 calc(var(--pixel) * -4) var(--pixel-border-text),
+            0 calc(var(--pixel) * 10) 0 calc(var(--pixel) * -4) var(--pixel-border-text),
+            0 calc(var(--pixel) * -13) 0 calc(var(--pixel) * -6) var(--pixel-border-text),
+            0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-border-text),
+    }
+
+    .heroCont{
+        .statsCont{
+            display: flex;
+            flex-direction: column;
+            gap: 17px;
+            > div{
+                height: 40px;
+                display: flex;
+                gap: 10px;
+                .barSymbol{
+                    height: 48px;
+                    width: 48px;
+                }
+
+                .bar{
+                    height: 100%;
+                    width: 100%;
+                    // background-color: #E3E1E4;
+                    // border: 4px solid #1f1f1f;
+                    border-radius: 30px;
+                    // overflow: hidden;
+                    // box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+
+                    .fill{
+                        // box-sizing: border-box;
+                        height: calc(100% + 4px);
+                        width: calc(50% + 4px);
+                        transition: width 0.3s ease;
+                        // border-radius: 30px;
+                        border: 4px solid #1f1f1f;
+                    }
+
+                    .happinessFill{
+                        background-color: #d83b42;
+                        box-shadow: 0px 12px 0px 0px #ee3a43 inset;
+                    }
+                    .energyFill{
+                        background-color: #FEF165;
+                        box-shadow: 0px 12px 0px 0px #f7ef9e inset;
+                    }
+                    .fullnessFill{
+                        background-color: #5DDDAD;
+                        box-shadow: 0px 12px 0px 0px #71e7bc inset;
+                    }
+
+
+                }
+            }
+        }
     }
 }

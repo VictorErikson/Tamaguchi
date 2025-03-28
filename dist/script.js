@@ -331,34 +331,40 @@ class Game {
         statsCont.classList.add("statsCont");
         const energyCont = createDiv();
         energyCont.classList.add("energyCont");
-        const energyImg = createImg();
-        energyImg.classList.add("energyImg", "barSymbol");
+        // const energyImg = createImg();
+        // energyImg.classList.add("energyImg", "barSymbol")
+        // energyImg.src = "/assets/icons/stats/energy.svg";
         const energyBar = createDiv();
         energyBar.classList.add("energyBar", "bar");
         const energyFill = createDiv();
         energyFill.classList.add("energyFill", "fill");
         energyBar.append(energyFill);
-        energyCont.append(energyImg, energyBar);
+        energyCont.append(energyBar);
+        // energyCont.append(energyImg, energyBar);
         const happinessCont = createDiv();
         happinessCont.classList.add("happinessCont");
-        const happinessImg = createImg();
-        happinessImg.classList.add("happinessImg", "barSymbol");
+        // const happinessImg = createImg();
+        // happinessImg.src = "/assets/icons/stats/happiness.svg"
+        // happinessImg.classList.add("happinessImg", "barSymbol");
         const happinessBar = createDiv();
         happinessBar.classList.add("happinessBar", "bar");
         const happinessFill = createDiv();
         happinessFill.classList.add("happinessFill", "fill");
         happinessBar.append(happinessFill);
-        happinessCont.append(happinessImg, happinessBar);
+        happinessCont.append(happinessBar);
+        // happinessCont.append(happinessImg, happinessBar);
         const fullnessCont = createDiv();
         fullnessCont.classList.add("fullnessCont");
-        const fullnessImg = createImg();
-        fullnessImg.classList.add("fullnessImg", "barSymbol");
+        // const fullnessImg = createImg();
+        // fullnessImg.src = "/assets/icons/stats/fullness.svg";
+        // fullnessImg.classList.add("fullnessImg", "barSymbol");
         const fullnessBar = createDiv();
         fullnessBar.classList.add("fullnessBar", "bar");
         const fullnessFill = createDiv();
         fullnessFill.classList.add("fullnessFill", "fill");
         fullnessBar.append(fullnessFill);
-        fullnessCont.append(fullnessImg, fullnessBar);
+        fullnessCont.append(fullnessBar);
+        // fullnessCont.append(fullnessImg, fullnessBar);
         statsCont.append(energyCont, happinessCont, fullnessCont);
         return statsCont;
     }
@@ -407,6 +413,7 @@ class Game {
     }
     static generateLevelSelection() {
         Game.removeAllButtonFunction();
+        document.querySelector(".startAnimController")?.classList.remove("startAnimController");
         document.querySelector("h1")?.remove();
         const section_8bit = Game.generateHeroBox();
         const level = document.createElement("h2");
