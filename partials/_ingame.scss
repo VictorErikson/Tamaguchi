@@ -14,6 +14,7 @@
         background-repeat: no-repeat;
         background-position: center;
         border: 2px solid black;
+        overflow: hidden;
 
         &.spartan{
             background-size: 260%;
@@ -29,6 +30,10 @@
         &.dog{
             background-size: 260%;
             background-position: -30px -30px;
+        }
+        &.disabled{
+            pointer-events: none;
+            filter: brightness(20%);
         }
         
     }

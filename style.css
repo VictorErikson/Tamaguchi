@@ -427,6 +427,7 @@ button {
   background-repeat: no-repeat;
   background-position: center;
   border: 2px solid black;
+  overflow: hidden;
 }
 .smallHeroMenuCont button.spartan {
   background-size: 260%;
@@ -442,6 +443,10 @@ button {
 .smallHeroMenuCont button.dog {
   background-size: 260%;
   background-position: -30px -30px;
+}
+.smallHeroMenuCont button.disabled {
+  pointer-events: none;
+  filter: brightness(20%);
 }
 
 .gameCont {
