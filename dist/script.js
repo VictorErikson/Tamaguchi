@@ -49,7 +49,7 @@ class Tamaguchi {
     startLoop() {
         let time = 0;
         if (this.mode === 0) {
-            time = 10000;
+            time = 10000000;
         }
         else if (this.mode === 1) {
             time = 5000;
@@ -331,40 +331,47 @@ class Game {
         statsCont.classList.add("statsCont");
         const energyCont = createDiv();
         energyCont.classList.add("energyCont");
-        // const energyImg = createImg();
-        // energyImg.classList.add("energyImg", "barSymbol")
-        // energyImg.src = "/assets/icons/stats/energy.svg";
+        const energyImgCont = createDiv();
+        energyImgCont.classList.add("energyImgCont", "ImgCont");
+        const energyImg = createImg();
+        energyImg.classList.add("energyImg", "barSymbol");
+        energyImg.src = "/assets/icons/stats/energy_symbol.svg";
+        energyImgCont.append(energyImg);
         const energyBar = createDiv();
         energyBar.classList.add("energyBar", "bar");
         const energyFill = createDiv();
         energyFill.classList.add("energyFill", "fill");
         energyBar.append(energyFill);
-        energyCont.append(energyBar);
-        // energyCont.append(energyImg, energyBar);
+        energyCont.append(energyImgCont, energyBar);
         const happinessCont = createDiv();
         happinessCont.classList.add("happinessCont");
-        // const happinessImg = createImg();
-        // happinessImg.src = "/assets/icons/stats/happiness.svg"
-        // happinessImg.classList.add("happinessImg", "barSymbol");
+        const happinessImgCont = createDiv();
+        happinessImgCont.classList.add("happinessImgCont", "ImgCont");
+        const happinessImg = createImg();
+        happinessImg.src = "/assets/icons/stats/happiness/happy.svg";
+        happinessImg.classList.add("happinessImg", "barSymbol");
+        happinessImgCont.append(happinessImg);
         const happinessBar = createDiv();
         happinessBar.classList.add("happinessBar", "bar");
         const happinessFill = createDiv();
         happinessFill.classList.add("happinessFill", "fill");
         happinessBar.append(happinessFill);
         happinessCont.append(happinessBar);
-        // happinessCont.append(happinessImg, happinessBar);
+        happinessCont.append(happinessImgCont, happinessBar);
         const fullnessCont = createDiv();
         fullnessCont.classList.add("fullnessCont");
-        // const fullnessImg = createImg();
-        // fullnessImg.src = "/assets/icons/stats/fullness.svg";
-        // fullnessImg.classList.add("fullnessImg", "barSymbol");
+        const fullnessImgCont = createDiv();
+        fullnessImgCont.classList.add("fullnessImgCont", "ImgCont");
+        const fullnessImg = createImg();
+        fullnessImg.src = "/assets/icons/stats/fullness.svg";
+        fullnessImg.classList.add("fullnessImg", "barSymbol");
+        fullnessImgCont.append(fullnessImg);
         const fullnessBar = createDiv();
         fullnessBar.classList.add("fullnessBar", "bar");
         const fullnessFill = createDiv();
         fullnessFill.classList.add("fullnessFill", "fill");
         fullnessBar.append(fullnessFill);
-        fullnessCont.append(fullnessBar);
-        // fullnessCont.append(fullnessImg, fullnessBar);
+        fullnessCont.append(fullnessImgCont, fullnessBar);
         statsCont.append(energyCont, happinessCont, fullnessCont);
         return statsCont;
     }

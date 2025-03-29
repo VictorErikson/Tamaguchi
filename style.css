@@ -502,24 +502,54 @@ button {
 .gameCont .heroCont .statsCont {
   display: flex;
   flex-direction: column;
-  gap: 17px;
+  gap: 27px;
 }
 .gameCont .heroCont .statsCont > div {
   height: 40px;
   display: flex;
-  gap: 10px;
+  gap: 20px;
+  position: relative;
+}
+.gameCont .heroCont .statsCont > div .ImgCont {
+  border: 4px solid #1f1f1f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  transform: rotate(45deg);
+  aspect-ratio: 1/1;
+  position: absolute;
+  top: -3px;
+}
+.gameCont .heroCont .statsCont > div .ImgCont img {
+  transform: rotate(-45deg);
+}
+.gameCont .heroCont .statsCont > div .ImgCont.energyImgCont {
+  background-color: #FEF165;
+  box-shadow: 0px 12px 0px 0px #f7ef9e inset;
+}
+.gameCont .heroCont .statsCont > div .ImgCont.happinessImgCont {
+  background-color: #d83b42;
+  box-shadow: 0px 12px 0px 0px #ee3a43 inset;
+}
+.gameCont .heroCont .statsCont > div .ImgCont.fullnessImgCont {
+  background-color: #5DDDAD;
+  box-shadow: 0px 12px 0px 0px #71e7bc inset;
 }
 .gameCont .heroCont .statsCont > div .barSymbol {
-  height: 48px;
-  width: 48px;
+  height: 36px;
+  width: 36px;
 }
 .gameCont .heroCont .statsCont > div .bar {
   height: 100%;
   width: 100%;
+  margin-left: 20px;
   border-radius: 30px;
+  display: flex;
+  align-items: center;
 }
 .gameCont .heroCont .statsCont > div .bar .fill {
-  height: calc(100% + 4px);
+  height: calc(100% + 8px);
   width: calc(50% + 4px);
   transition: width 0.3s ease;
   border: 4px solid #1f1f1f;
