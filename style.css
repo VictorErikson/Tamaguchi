@@ -469,10 +469,23 @@ button {
   justify-content: space-between;
   width: 100%;
   gap: 40px;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 .gameCont .textbox, .gameCont .fillerBox {
   width: 100%;
   height: 100%;
+}
+.gameCont .carousel {
+  width: -moz-fit-content;
+  width: fit-content;
+  overflow: visible;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.gameCont .carousel .carousel-track {
+  height: -moz-fit-content;
+  height: fit-content;
 }
 .gameCont .fillerBox {
   margin-right: 40px;
@@ -499,18 +512,18 @@ button {
   width: 100%;
   z-index: 2;
 }
-.gameCont .heroCont .statsCont {
+.gameCont .carousel-item .statsCont {
   display: flex;
   flex-direction: column;
   gap: 27px;
 }
-.gameCont .heroCont .statsCont > div {
+.gameCont .carousel-item .statsCont > div {
   height: 40px;
   display: flex;
   gap: 20px;
   position: relative;
 }
-.gameCont .heroCont .statsCont > div .ImgCont {
+.gameCont .carousel-item .statsCont > div .ImgCont {
   border: 4px solid #1f1f1f;
   display: flex;
   justify-content: center;
@@ -521,26 +534,26 @@ button {
   position: absolute;
   top: -3px;
 }
-.gameCont .heroCont .statsCont > div .ImgCont img {
+.gameCont .carousel-item .statsCont > div .ImgCont img {
   transform: rotate(-45deg);
 }
-.gameCont .heroCont .statsCont > div .ImgCont.energyImgCont {
+.gameCont .carousel-item .statsCont > div .ImgCont.energyImgCont {
   background-color: #FEF165;
   box-shadow: 0px 12px 0px 0px #f7ef9e inset;
 }
-.gameCont .heroCont .statsCont > div .ImgCont.happinessImgCont {
+.gameCont .carousel-item .statsCont > div .ImgCont.happinessImgCont {
   background-color: #d83b42;
   box-shadow: 0px 12px 0px 0px #ee3a43 inset;
 }
-.gameCont .heroCont .statsCont > div .ImgCont.fullnessImgCont {
+.gameCont .carousel-item .statsCont > div .ImgCont.fullnessImgCont {
   background-color: #5DDDAD;
   box-shadow: 0px 12px 0px 0px #71e7bc inset;
 }
-.gameCont .heroCont .statsCont > div .barSymbol {
+.gameCont .carousel-item .statsCont > div .barSymbol {
   height: 36px;
   width: 36px;
 }
-.gameCont .heroCont .statsCont > div .bar {
+.gameCont .carousel-item .statsCont > div .bar {
   height: 100%;
   width: 100%;
   margin-left: 20px;
@@ -548,21 +561,288 @@ button {
   display: flex;
   align-items: center;
 }
-.gameCont .heroCont .statsCont > div .bar .fill {
+.gameCont .carousel-item .statsCont > div .bar .fill {
   height: calc(100% + 8px);
   width: calc(50% + 4px);
   transition: width 0.3s ease;
   border: 4px solid #1f1f1f;
 }
-.gameCont .heroCont .statsCont > div .bar .happinessFill {
+.gameCont .carousel-item .statsCont > div .bar .happinessFill {
   background-color: #d83b42;
   box-shadow: 0px 12px 0px 0px #ee3a43 inset;
 }
-.gameCont .heroCont .statsCont > div .bar .energyFill {
+.gameCont .carousel-item .statsCont > div .bar .energyFill {
   background-color: #FEF165;
   box-shadow: 0px 12px 0px 0px #f7ef9e inset;
 }
-.gameCont .heroCont .statsCont > div .bar .fullnessFill {
+.gameCont .carousel-item .statsCont > div .bar .fullnessFill {
   background-color: #5DDDAD;
   box-shadow: 0px 12px 0px 0px #71e7bc inset;
-}/*# sourceMappingURL=style.css.map */
+}
+
+.heroCont section.section_8bit {
+  position: relative;
+  display: block;
+  unicode-bidi: isolate;
+}
+.heroCont section.section_8bit .wrapper.windowCont {
+  width: 380px;
+  height: 415px;
+  background-size: 120%;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  box-shadow: inset 0 10px 8px rgba(0, 0, 0, 0.6);
+  border-left: 20px solid #E3E1E4;
+  border-right: 20px solid #E3E1E4;
+  box-shadow: calc(var(--pixel) * -1) 0 0 0 var(--pixel-border), var(--pixel) 0 0 0 var(--pixel-border), 0 calc(var(--pixel) * -2) 0 0 var(--pixel-border), 0 calc(var(--pixel) * 2) 0 0 var(--pixel-border), 0 calc(var(--pixel) * -5) 0 calc(var(--pixel) * -1) var(--pixel-border), 0 calc(var(--pixel) * 5) 0 calc(var(--pixel) * -1) var(--pixel-border), 0 calc(var(--pixel) * -7) 0 calc(var(--pixel) * -2) var(--pixel-border), 0 calc(var(--pixel) * 7) 0 calc(var(--pixel) * -2) var(--pixel-border), 0 calc(var(--pixel) * -10) 0 calc(var(--pixel) * -4) var(--pixel-border), 0 calc(var(--pixel) * 10) 0 calc(var(--pixel) * -4) var(--pixel-border), 0 calc(var(--pixel) * -13) 0 calc(var(--pixel) * -6) var(--pixel-border), 0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-border);
+}
+.heroCont section.section_8bit .wrapper.windowCont .windowCont img {
+  position: absolute;
+  height: 110%;
+  z-index: 1;
+}
+.heroCont section.section_8bit .wrapper.windowCont img {
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
+.heroCont section.section_8bit .windowCont::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 56px;
+  width: 100%;
+  background: #E3E1E4;
+  z-index: 2;
+}
+.heroCont section.section_8bit .statsCont {
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+}
+.heroCont section.section_8bit .statsCont > div {
+  height: 40px;
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+.heroCont section.section_8bit .statsCont > div .ImgCont {
+  border: 4px solid #1f1f1f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  transform: rotate(45deg);
+  aspect-ratio: 1/1;
+  position: absolute;
+  top: -3px;
+}
+.heroCont section.section_8bit .statsCont > div .ImgCont img {
+  transform: rotate(-45deg);
+}
+.heroCont section.section_8bit .statsCont > div .ImgCont.energyImgCont {
+  background-color: #FEF165;
+  box-shadow: 0px 12px 0px 0px #f7ef9e inset;
+}
+.heroCont section.section_8bit .statsCont > div .ImgCont.happinessImgCont {
+  background-color: #d83b42;
+  box-shadow: 0px 12px 0px 0px #ee3a43 inset;
+}
+.heroCont section.section_8bit .statsCont > div .ImgCont.fullnessImgCont {
+  background-color: #5DDDAD;
+  box-shadow: 0px 12px 0px 0px #71e7bc inset;
+}
+.heroCont section.section_8bit .statsCont > div .barSymbol {
+  height: 36px;
+  width: 36px;
+}
+.heroCont section.section_8bit .statsCont > div .bar {
+  height: 100%;
+  width: 100%;
+  margin-left: 20px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+}
+.heroCont section.section_8bit .statsCont > div .bar .fill {
+  height: calc(100% + 8px);
+  width: calc(50% + 4px);
+  transition: width 0.3s ease;
+  border: 4px solid #1f1f1f;
+}
+.heroCont section.section_8bit .statsCont > div .bar .happinessFill {
+  background-color: #d83b42;
+  box-shadow: 0px 12px 0px 0px #ee3a43 inset;
+}
+.heroCont section.section_8bit .statsCont > div .bar .energyFill {
+  background-color: #FEF165;
+  box-shadow: 0px 12px 0px 0px #f7ef9e inset;
+}
+.heroCont section.section_8bit .statsCont > div .bar .fullnessFill {
+  background-color: #5DDDAD;
+  box-shadow: 0px 12px 0px 0px #71e7bc inset;
+}
+.heroCont section.section_8bit .heroName {
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
+  top: 400px;
+  bottom: auto;
+  z-index: 2;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-wrap: nowrap;
+}
+
+/*
+.carousel{
+    width: fit-content;
+    overflow: visible;
+    position: relative;
+
+    .carousel-track{
+        height: fit-content;
+        display: flex;
+        transition: transform 0.4s ease-in-out;
+        will-change: transform;
+
+        .carousel-item{
+            height: fit-content;
+            flex: 0 0 380px;
+            background-size: cover;
+            background-position: center;
+
+            section.section_8bit{
+                position: relative;
+                display: block;
+                unicode-bidi: isolate;
+
+                .wrapper.windowCont{
+                    width: 380px;
+                    height: 415px;
+                    background-size: 120%;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    overflow: hidden;
+                    position: relative;
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 40px;
+                    box-shadow: inset 0 10px 8px rgba(0, 0, 0, 0.6);
+                    border-left: 20px solid #E3E1E4;
+                    border-right: 20px solid #E3E1E4;
+                    box-shadow: calc(var(--pixel)* -1) 0 0 0 var(--pixel-border), var(--pixel) 0 0 0 var(--pixel-border), 0 calc(var(--pixel)* -2) 0 0 var(--pixel-border), 0 calc(var(--pixel)* 2) 0 0 var(--pixel-border), 0 calc(var(--pixel)* -5) 0 calc(var(--pixel)* -1) var(--pixel-border), 0 calc(var(--pixel)* 5) 0 calc(var(--pixel)* -1) var(--pixel-border), 0 calc(var(--pixel)* -7) 0 calc(var(--pixel)* -2) var(--pixel-border), 0 calc(var(--pixel)* 7) 0 calc(var(--pixel)* -2) var(--pixel-border), 0 calc(var(--pixel)* -10) 0 calc(var(--pixel)* -4) var(--pixel-border), 0 calc(var(--pixel)* 10) 0 calc(var(--pixel)* -4) var(--pixel-border), 0 calc(var(--pixel)* -13) 0 calc(var(--pixel)* -6) var(--pixel-border), 0 calc(var(--pixel)* 13) 0 calc(var(--pixel)* -6) var(--pixel-border);
+
+                    .windowCont img {
+                        position: absolute;
+                        height: 110%;
+                        z-index: 1;
+                    }
+                    img {
+                        overflow-clip-margin: content-box;
+                        overflow: clip;
+                    }
+                }
+                .windowCont::after {
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    height: 56px;
+                    width: 100%;
+                    background: #E3E1E4;
+                    z-index: 2;
+                }
+                .statsCont{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 27px;
+                    > div{
+                        height: 40px;
+                        display: flex;
+                        gap: 20px;
+                        position: relative;
+
+                        .ImgCont{
+                            border: 4px solid #1f1f1f;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: calc(40px);
+                            transform: rotate(45deg);
+                            // display: inline-block;
+                            aspect-ratio: 1 / 1;
+                            position: absolute;
+                            top: -3px;
+                            img{
+                                transform: rotate(-45deg);
+                            }
+
+                            &.energyImgCont{
+                                background-color: #FEF165;
+                                box-shadow: 0px 12px 0px 0px #f7ef9e inset;
+                            }
+
+                            &.happinessImgCont{
+                                background-color: #d83b42;
+                                box-shadow: 0px 12px 0px 0px #ee3a43 inset;
+                            }
+                            &.fullnessImgCont{
+                                background-color: #5DDDAD;
+                                box-shadow: 0px 12px 0px 0px #71e7bc inset;
+                            }
+                        }
+
+
+                        .barSymbol{
+                            height: 36px;
+                            width: 36px;
+                        }
+
+                        .bar{
+                            height: 100%;
+                            width: 100%;
+                            margin-left: 20px;
+                            border-radius: 30px;
+                            display: flex;
+                            align-items: center;
+
+
+                            .fill{
+                                // box-sizing: border-box;
+                                height: calc(100% + 8px);
+                                width: calc(50% + 4px);
+                                transition: width 0.3s ease;
+                                // border-radius: 30px;
+                                border: 4px solid #1f1f1f;
+                            }
+
+                            .happinessFill{
+                                background-color: #d83b42;
+                                box-shadow: 0px 12px 0px 0px #ee3a43 inset;
+                            }
+                            .energyFill{
+                                background-color: #FEF165;
+                                box-shadow: 0px 12px 0px 0px #f7ef9e inset;
+                            }
+                            .fullnessFill{
+                                background-color: #5DDDAD;
+                                box-shadow: 0px 12px 0px 0px #71e7bc inset;
+                            }
+
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+*//*# sourceMappingURL=style.css.map */

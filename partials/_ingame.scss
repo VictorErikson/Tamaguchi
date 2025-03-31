@@ -60,10 +60,26 @@
     justify-content: space-between;
     width: 100%;
     gap: 40px;
+    height: fit-content;
 
     .textbox, .fillerBox{
         width: 100%;
         height: 100%;
+    }
+
+    .carousel{
+        width: fit-content;
+        overflow: visible;
+        height: fit-content;
+
+        .carousel-track{
+            height: fit-content;
+
+            .carousel-item{
+                // height: fit-content;
+            }
+
+        }
     }
 
     .fillerBox{
@@ -113,7 +129,7 @@
             0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-border-text),
     }
 
-    .heroCont{
+    .carousel-item{
         .statsCont{
             display: flex;
             flex-direction: column;
@@ -197,3 +213,295 @@
         }
     }
 }
+
+
+
+.heroCont{
+
+    section.section_8bit{
+        position: relative;
+        display: block;
+        unicode-bidi: isolate;
+
+        .wrapper.windowCont{
+            width: 380px;
+            height: 415px;
+            background-size: 120%;
+            background-repeat: no-repeat;
+            background-position: center;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            box-shadow: inset 0 10px 8px rgba(0, 0, 0, 0.6);
+            border-left: 20px solid #E3E1E4;
+            border-right: 20px solid #E3E1E4;
+            box-shadow: calc(var(--pixel)* -1) 0 0 0 var(--pixel-border), var(--pixel) 0 0 0 var(--pixel-border), 0 calc(var(--pixel)* -2) 0 0 var(--pixel-border), 0 calc(var(--pixel)* 2) 0 0 var(--pixel-border), 0 calc(var(--pixel)* -5) 0 calc(var(--pixel)* -1) var(--pixel-border), 0 calc(var(--pixel)* 5) 0 calc(var(--pixel)* -1) var(--pixel-border), 0 calc(var(--pixel)* -7) 0 calc(var(--pixel)* -2) var(--pixel-border), 0 calc(var(--pixel)* 7) 0 calc(var(--pixel)* -2) var(--pixel-border), 0 calc(var(--pixel)* -10) 0 calc(var(--pixel)* -4) var(--pixel-border), 0 calc(var(--pixel)* 10) 0 calc(var(--pixel)* -4) var(--pixel-border), 0 calc(var(--pixel)* -13) 0 calc(var(--pixel)* -6) var(--pixel-border), 0 calc(var(--pixel)* 13) 0 calc(var(--pixel)* -6) var(--pixel-border);
+        
+            .windowCont img {
+                position: absolute;
+                height: 110%;
+                z-index: 1;
+            }
+            img {
+                overflow-clip-margin: content-box;
+                overflow: clip;
+            }
+        }
+        .windowCont::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 56px;
+            width: 100%;
+            background: #E3E1E4;
+            z-index: 2;
+        }
+        .statsCont{
+            display: flex;
+            flex-direction: column;
+            gap: 27px;
+            > div{
+                height: 40px;
+                display: flex;
+                gap: 20px;
+                position: relative;
+
+                .ImgCont{
+                    border: 4px solid #1f1f1f;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: calc(40px);
+                    transform: rotate(45deg);
+                    // display: inline-block;
+                    aspect-ratio: 1 / 1;
+                    position: absolute;
+                    top: -3px;
+                    img{
+                        transform: rotate(-45deg);
+                    }
+
+                    &.energyImgCont{
+                        background-color: #FEF165;
+                        box-shadow: 0px 12px 0px 0px #f7ef9e inset;
+                    }
+
+                    &.happinessImgCont{
+                        background-color: #d83b42;
+                        box-shadow: 0px 12px 0px 0px #ee3a43 inset;
+                    }
+                    &.fullnessImgCont{
+                        background-color: #5DDDAD;
+                        box-shadow: 0px 12px 0px 0px #71e7bc inset;
+                    }
+                }
+
+
+                .barSymbol{
+                    height: 36px;
+                    width: 36px;
+                }
+
+                .bar{
+                    height: 100%;
+                    width: 100%;
+                    margin-left: 20px;
+                    border-radius: 30px;
+                    display: flex;
+                    align-items: center;
+                
+
+                    .fill{
+                        // box-sizing: border-box;
+                        height: calc(100% + 8px);
+                        width: calc(50% + 4px);
+                        transition: width 0.3s ease;
+                        // border-radius: 30px;
+                        border: 4px solid #1f1f1f;
+                    }
+
+                    .happinessFill{
+                        background-color: #d83b42;
+                        box-shadow: 0px 12px 0px 0px #ee3a43 inset;
+                    }
+                    .energyFill{
+                        background-color: #FEF165;
+                        box-shadow: 0px 12px 0px 0px #f7ef9e inset;
+                    }
+                    .fullnessFill{
+                        background-color: #5DDDAD;
+                        box-shadow: 0px 12px 0px 0px #71e7bc inset;
+                    }
+
+
+                }
+            }
+        }
+
+        .heroName{
+            position: absolute;
+            margin: 0px;
+            padding: 0px;
+            top: 400px;
+            bottom: auto;
+            z-index: 2;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-wrap: nowrap;
+        }
+    }
+
+}
+
+
+
+/*
+.carousel{
+    width: fit-content;
+    overflow: visible;
+    position: relative;
+
+    .carousel-track{
+        height: fit-content;
+        display: flex;
+        transition: transform 0.4s ease-in-out;
+        will-change: transform;
+
+        .carousel-item{
+            height: fit-content;
+            flex: 0 0 380px;
+            background-size: cover;
+            background-position: center;
+
+            section.section_8bit{
+                position: relative;
+                display: block;
+                unicode-bidi: isolate;
+
+                .wrapper.windowCont{
+                    width: 380px;
+                    height: 415px;
+                    background-size: 120%;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    overflow: hidden;
+                    position: relative;
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 40px;
+                    box-shadow: inset 0 10px 8px rgba(0, 0, 0, 0.6);
+                    border-left: 20px solid #E3E1E4;
+                    border-right: 20px solid #E3E1E4;
+                    box-shadow: calc(var(--pixel)* -1) 0 0 0 var(--pixel-border), var(--pixel) 0 0 0 var(--pixel-border), 0 calc(var(--pixel)* -2) 0 0 var(--pixel-border), 0 calc(var(--pixel)* 2) 0 0 var(--pixel-border), 0 calc(var(--pixel)* -5) 0 calc(var(--pixel)* -1) var(--pixel-border), 0 calc(var(--pixel)* 5) 0 calc(var(--pixel)* -1) var(--pixel-border), 0 calc(var(--pixel)* -7) 0 calc(var(--pixel)* -2) var(--pixel-border), 0 calc(var(--pixel)* 7) 0 calc(var(--pixel)* -2) var(--pixel-border), 0 calc(var(--pixel)* -10) 0 calc(var(--pixel)* -4) var(--pixel-border), 0 calc(var(--pixel)* 10) 0 calc(var(--pixel)* -4) var(--pixel-border), 0 calc(var(--pixel)* -13) 0 calc(var(--pixel)* -6) var(--pixel-border), 0 calc(var(--pixel)* 13) 0 calc(var(--pixel)* -6) var(--pixel-border);
+                
+                    .windowCont img {
+                        position: absolute;
+                        height: 110%;
+                        z-index: 1;
+                    }
+                    img {
+                        overflow-clip-margin: content-box;
+                        overflow: clip;
+                    }
+                }
+                .windowCont::after {
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    height: 56px;
+                    width: 100%;
+                    background: #E3E1E4;
+                    z-index: 2;
+                }
+                .statsCont{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 27px;
+                    > div{
+                        height: 40px;
+                        display: flex;
+                        gap: 20px;
+                        position: relative;
+        
+                        .ImgCont{
+                            border: 4px solid #1f1f1f;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: calc(40px);
+                            transform: rotate(45deg);
+                            // display: inline-block;
+                            aspect-ratio: 1 / 1;
+                            position: absolute;
+                            top: -3px;
+                            img{
+                                transform: rotate(-45deg);
+                            }
+        
+                            &.energyImgCont{
+                                background-color: #FEF165;
+                                box-shadow: 0px 12px 0px 0px #f7ef9e inset;
+                            }
+        
+                            &.happinessImgCont{
+                                background-color: #d83b42;
+                                box-shadow: 0px 12px 0px 0px #ee3a43 inset;
+                            }
+                            &.fullnessImgCont{
+                                background-color: #5DDDAD;
+                                box-shadow: 0px 12px 0px 0px #71e7bc inset;
+                            }
+                        }
+        
+        
+                        .barSymbol{
+                            height: 36px;
+                            width: 36px;
+                        }
+        
+                        .bar{
+                            height: 100%;
+                            width: 100%;
+                            margin-left: 20px;
+                            border-radius: 30px;
+                            display: flex;
+                            align-items: center;
+                        
+        
+                            .fill{
+                                // box-sizing: border-box;
+                                height: calc(100% + 8px);
+                                width: calc(50% + 4px);
+                                transition: width 0.3s ease;
+                                // border-radius: 30px;
+                                border: 4px solid #1f1f1f;
+                            }
+        
+                            .happinessFill{
+                                background-color: #d83b42;
+                                box-shadow: 0px 12px 0px 0px #ee3a43 inset;
+                            }
+                            .energyFill{
+                                background-color: #FEF165;
+                                box-shadow: 0px 12px 0px 0px #f7ef9e inset;
+                            }
+                            .fullnessFill{
+                                background-color: #5DDDAD;
+                                box-shadow: 0px 12px 0px 0px #71e7bc inset;
+                            }
+        
+        
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+*/
