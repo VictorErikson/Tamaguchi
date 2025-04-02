@@ -7,13 +7,16 @@ class Tamaguchi {
         this.fullness = 50;
         this.happiness = 50;
         this.mode = mode;
+        this.index = Game.heroInstances.length;
         this.startLoop();
     }
     nap() {
         this.energy += 40;
         this.happiness -= 10;
         this.fullness -= 10;
-        activityHistory.push(`${this.name} takes a nap and restores some energy`);
+        activityHistory.push(`${this.name} takes a nap and restores some energy... 😴💤`);
+        this.MinMaxStats();
+        this.checkIfDead();
         this.updateBars();
     }
     play() {
@@ -24,14 +27,16 @@ class Tamaguchi {
             activityHistory.push(`${this.name} starts fighting in an epic battle! 🛡️⚔️`);
         }
         else if (this.character === "alien") {
-            activityHistory.push(`${this.name} starts experimenting on an innocent human. This brings him great pleasure.`);
+            activityHistory.push(`${this.name} starts experimenting on an innocent human. This brings him great pleasure.👽`);
         }
         else if (this.character === "dog") {
             activityHistory.push(`${this.name} Starts playing some guitar. Sounds great! 🎸🎵`);
         }
         else {
-            activityHistory.push(`${this.name} starts playing`);
+            activityHistory.push(`${this.name} starts playing.`);
         }
+        this.MinMaxStats();
+        this.checkIfDead();
         this.updateBars();
     }
     eat() {
@@ -44,20 +49,13 @@ class Tamaguchi {
         else {
             activityHistory.push(`${this.name} starts eating a delicious meal. 🍕🍎`);
         }
+        this.MinMaxStats();
+        this.checkIfDead();
         this.updateBars();
     }
     startLoop() {
-        let time = 0;
-        if (this.mode === 0) {
-            time = 10000000;
-        }
-        else if (this.mode === 1) {
-            time = 5000;
-        }
-        else {
-            time = 1000;
-        }
-        setInterval(() => {
+        let time = this.mode === 0 ? 10000 : this.mode === 1 ? 5000 : 1000;
+        this.intervalId = setInterval(() => {
             this.updateStats();
         }, time);
     }
@@ -65,12 +63,47 @@ class Tamaguchi {
         this.energy -= 15;
         this.fullness -= 15;
         this.happiness -= 15;
+        this.MinMaxStats();
+        this.checkIfDead();
         this.updateBars();
     }
     updateBars() {
-        Game.updateEnergy(this.energy);
-        Game.updateFullness(this.fullness);
-        Game.updateHappiness(this.happiness);
+        if (Game.currentHeroIndex === this.index) {
+            Game.updateEnergy(this.energy);
+            Game.updateFullness(this.fullness);
+            Game.updateHappiness(this.happiness);
+        }
+    }
+    checkIfDead() {
+        if (this.energy === 0 || this.fullness === 0 || this.happiness === 0) {
+            this.dead();
+        }
+    }
+    MinMaxStats() {
+        this.energy = Math.max(0, Math.min(this.energy, 100));
+        this.fullness = Math.max(0, Math.min(this.fullness, 100));
+        this.happiness = Math.max(0, Math.min(this.happiness, 100));
+    }
+    dead() {
+        if (this.intervalId !== undefined) {
+            clearInterval(this.intervalId);
+        }
+        if (this.energy === 0) {
+            activityHistory.push(`${this.name} died from exhaustion! 💤💀`);
+            this.happiness = 0;
+            this.fullness = 0;
+        }
+        else if (this.fullness === 0) {
+            activityHistory.push(`${this.name} died from hunger! 🍽️💀`);
+            this.energy = 0;
+            this.happiness = 0;
+        }
+        else {
+            activityHistory.push(`${this.name} died of boredom! 💀⚰️`);
+            this.energy = 0;
+            this.fullness = 0;
+        }
+        GameActions.printAction();
     }
 }
 const createBtn = () => document.createElement("button");
@@ -314,6 +347,7 @@ class Game {
         textbox.classList.add("textbox");
         const textUl = document.createElement("ul");
         textUl.classList.add("textUl");
+        textbox.append(textUl);
         return textbox;
     }
     static updateEnergy(percentage) {
@@ -403,191 +437,6 @@ class Game {
         });
         return smallHeroMenuCont;
     }
-    // static changeCharacterIngame(direction: number) {
-    //     const track = document.querySelector(".carousel-track") as HTMLDivElement;
-    //     const itemWidth = 380;
-    //     const totalItems = Game.heroInstances.length;
-    //     if (!track) return;
-    //     Game.currentCharacterIndex += direction;
-    //     console.log("totalItems: " + totalItems);
-    //     console.log("Index: " + Game.currentCharacterIndex);
-    //     Game.selectedCharacterIndex = (Game.currentCharacterIndex - 1 + totalItems) % totalItems;
-    //     let heroName: HTMLHeadingElement | null = document.querySelector(".heroName")
-    //     let nameIndex = Game.currentCharacterIndex - 1;
-    //     console.log("NameIndex: " + nameIndex);
-    //     if(Game.currentCharacterIndex === 0){
-    //         nameIndex = totalItems - 1;
-    //     } else if (Game.currentCharacterIndex === totalItems + 1){
-    //         nameIndex = 0;
-    //     }
-    //     if(heroName){
-    //             heroName.innerText = `${Game.characterNames[nameIndex]}`
-    //         }
-    //     track.style.transition = "transform 0.4s ease-in-out";
-    //     track.style.transform = `translateX(-${Game.currentCharacterIndex * itemWidth}px)`;
-    //     track.addEventListener("transitionend", function handleTransition() {
-    //         track.removeEventListener("transitionend", handleTransition);
-    //         if (Game.currentCharacterIndex === 0) {
-    //             track.style.transition = "none";
-    //             Game.currentCharacterIndex = totalItems;
-    //             track.style.transform = `translateX(-${Game.currentCharacterIndex * itemWidth}px)`;
-    //         }
-    //         if (Game.currentCharacterIndex === totalItems + 1) {
-    //             track.style.transition = "none";
-    //             Game.currentCharacterIndex = 1;
-    //             track.style.transform = `translateX(-${Game.currentCharacterIndex * itemWidth}px)`;
-    //         }
-    //     });
-    //     console.log(Game.currentCharacterIndex);
-    // }
-    // static setupInfiniteCarousel(track: HTMLDivElement) {
-    //     const freshTrack = track.cloneNode(false) as HTMLDivElement;
-    //     track.replaceWith(freshTrack);
-    //     // Now you are working on a clean element
-    //     const newTrack = document.querySelector(".carousel-track") as HTMLDivElement;
-    //     if (!newTrack) return;
-    //     let Activeheroes = [...Game.heroInstances];
-    //     // Activeheroes.forEach(hero => console.log(hero.name));
-    //     // let items: HTMLDivElement[] = [];
-    //     Activeheroes.forEach(hero => {
-    //         const carouselItem = createDiv();
-    //         const className = hero.name.replaceAll(" ", "-").replaceAll(".", "");
-    //         carouselItem.classList.add("carousel-item", `${className}`)
-    //         newTrack.append(carouselItem);
-    //     });
-    //     if (!newTrack.classList.contains("carousel-initialized")){
-    //         newTrack.classList.add("carousel-initialized");
-    //         return
-    //     };
-    //     const items = Array.from(newTrack.children) as HTMLDivElement[];
-    //     if (items.length < 2) return;
-    //     const firstItem = items[0].cloneNode(true) as HTMLDivElement;
-    //     const lastItem = items[items.length - 1].cloneNode(true) as HTMLDivElement;
-    //     // console.log("firstItem: " + firstItem);
-    //     // console.log("lastItem: " + lastItem);
-    //     // Add clones
-    //     newTrack.insertBefore(lastItem, items[0]);
-    //     newTrack.appendChild(firstItem);
-    //     const itemWidth = 380;
-    //     // ✅ Reset index and position
-    //     Game.currentHeroIndex = 1;
-    //     newTrack.style.transition = "none";
-    //     newTrack.style.transform = `translateX(-${itemWidth * Game.currentHeroIndex}px)`;
-    //     function shiftSlide(dir: number) {
-    //         Game.currentHeroIndex += dir;
-    //         console.log("Game.currentHeroIndex: " + Game.currentHeroIndex);
-    //         newTrack.style.transition = "transform 0.4s ease-in-out";
-    //         newTrack.style.transform = `translateX(-${itemWidth * Game.currentHeroIndex}px)`;
-    //     }
-    //     // On transition end, jump to real item if clone is reached
-    //     newTrack.addEventListener("transitionend", () => {
-    //         const items = newTrack.querySelectorAll(".carousel-item");
-    //         if (Game.currentHeroIndex === 0) {
-    //             newTrack.style.transition = "none";
-    //             Game.currentHeroIndex = items.length - 2;
-    //             newTrack.style.transform = `translateX(-${itemWidth * Game.currentHeroIndex}px)`;
-    //         }
-    //         if (Game.currentHeroIndex === items.length - 1) {
-    //             newTrack.style.transition = "none";
-    //             Game.currentHeroIndex = 1;
-    //             newTrack.style.transform = `translateX(-${itemWidth * Game.currentHeroIndex}px)`;
-    //         }
-    //     });
-    //     return {
-    //         next: () => shiftSlide(1),
-    //         prev: () => shiftSlide(-1),
-    //     };
-    // }
-    // static addCharacterToCarousel(characterName: CharacterName) {
-    //     const track = document.querySelector(".carousel-track") as HTMLDivElement;
-    //     if (!track) return;
-    //     const className = characterName.replaceAll(" ", "-").replaceAll(".", "");
-    //     const existing = track.querySelector(`.carousel-item.${className}`);
-    //     if (existing) return; 
-    //     const item = Game.createCharacterItem(characterName);
-    //     track.appendChild(item);
-    //     const index = track.querySelectorAll(".carousel-item").length - 1;
-    //     const itemWidth = 380;
-    //     track.style.transition = "transform 0.4s ease-in-out";
-    //     track.style.transform = `translateX(-${index * itemWidth}px)`;
-    //     console.log("heroInstances: " + Game.heroInstances.map(hero => hero.name));
-    //     // selectedName;
-    //     // selectedType
-    //     if(Game.heroInstances.length > 1){
-    //         const rightBtn:HTMLButtonElement | null = document.querySelector(".rightBtn");
-    //         const leftBtn:HTMLButtonElement | null = document.querySelector(".leftBtn");
-    //         rightBtn && (rightBtn.onclick = () => {
-    //             Game.changeCharacterIngame(1)
-    //         });
-    //         leftBtn && (leftBtn.onclick = () => {
-    //             Game.changeCharacterIngame(-1)
-    //         });
-    //         // const greenBtn = document.querySelector(".yBtn");
-    //         // const redBtn = document.querySelector(".aBtn");
-    //         // const yellowBtn = document.querySelector(".bBtn");
-    //         // const currentHero = Game.heroInstances.forEach(hero => {
-    //         //     if(hero.name === characterName){return hero}
-    //         // })
-    //         // greenBtn?.addEventListener("click", () => {
-    //         //     currentHero?.eat()
-    //         // });
-    //     }
-    //   }
-    // static setupInfiniteCarousel(track: HTMLDivElement){    
-    //     const originalItems = Game.heroInstances;
-    //     let Activeheroes = [...Game.heroInstances];
-    //         // Activeheroes.forEach(hero => console.log(hero.name));
-    //         // let items: HTMLDivElement[] = [];
-    //         Activeheroes.forEach(hero => {
-    //             const carouselItem = createDiv();
-    //             const className = hero.name.replaceAll(" ", "-").replaceAll(".", "");
-    //             carouselItem.classList.add("carousel-item", `${className}`)
-    //             track.append(carouselItem);
-    //         });
-    //         if (!track.classList.contains("carousel-initialized")){
-    //             track.classList.add("carousel-initialized");
-    //             return
-    //         };
-    //         const items = Array.from(track.children) as HTMLDivElement[];
-    //         if (items.length < 2) return;
-    //         const firstItem = items[0].cloneNode(true) as HTMLDivElement;
-    //         const lastItem = items[items.length - 1].cloneNode(true) as HTMLDivElement;
-    //         // console.log("firstItem: " + firstItem);
-    //         // console.log("lastItem: " + lastItem);
-    //         // Add clones
-    //         track.insertBefore(lastItem, items[0]);
-    //         track.appendChild(firstItem);
-    //     let itemWidth = 380; // must match CSS
-    //     if(!track.classList.contains("disabled")){
-    //         function nextSlide() {
-    //         Game.index++;
-    //         track.style.transition = "transform 0.3s ease";
-    //         track.style.transform = `translateX(${-Game.index * itemWidth}px)`;
-    //         }
-    //         function prevSlide() {
-    //         Game.index--;
-    //         track.style.transition = "transform 0.3s ease";
-    //         track.style.transform = `translateX(${-Game.index * itemWidth}px)`;
-    //         }
-    //         document.querySelector(".rightBtn")?.addEventListener("click", nextSlide);
-    //         document.querySelector(".leftBtn")?.addEventListener("click", prevSlide);
-    //     }
-    //     track.classList.add("gotButtonEventlisteners");
-    //     track.addEventListener("transitionend", () => {
-    //     if (Game.index === originalItems.length + 2) {
-    //         // Reached end clone
-    //         Game.index = originalItems.length;
-    //         track.style.transition = "none";
-    //         track.style.transform = `translateX(${-Game.index * itemWidth}px)`;
-    //     }
-    //     if (Game.index === 1) {
-    //         // Reached start clone
-    //         Game.index = originalItems.length + 1;
-    //         track.style.transition = "none";
-    //         track.style.transform = `translateX(${-Game.index * itemWidth}px)`;
-    //     }
-    //     });
-    // }
     static addNewHero(heroName, heroType) {
         const newHero = new Tamaguchi(heroName, heroType, Game.currentLevelIndex);
         Game.heroInstances.push(newHero);
@@ -597,13 +446,22 @@ class Game {
         const className = newHero.name.replaceAll(" ", "-").replaceAll(".", "");
         carouselItem.classList.add("carousel-item", `${className}`);
         carouselTrack.append(carouselItem);
+        const updateNameAndBars = () => {
+            const heroName = document.querySelector(".heroName");
+            heroName && (heroName.innerText = `${Game.heroInstances[Game.currentHeroIndex].name}`);
+            Game.updateFullness(Game.heroInstances[Game.currentHeroIndex].fullness);
+            Game.updateHappiness(Game.heroInstances[Game.currentHeroIndex].happiness);
+            Game.updateEnergy(Game.heroInstances[Game.currentHeroIndex].energy);
+        };
         const moveCarousel = (direction) => {
             Game.currentHeroIndex += direction;
             Game.currentHeroIndex = Math.max(0, Math.min(Game.currentHeroIndex, Activeheroes.length - 1));
             carouselTrack.style.transform = `translateX(-${Game.currentHeroIndex * 380}px)`;
+            updateNameAndBars();
         };
         Game.currentHeroIndex = (Game.currentHeroIndex, Activeheroes.length - 1);
         carouselTrack.style.transform = `translateX(-${Game.currentHeroIndex * 380}px)`;
+        updateNameAndBars();
         Game.removeAllButtonFunction();
         const rightBtn = document.querySelector(".rightBtn");
         if (rightBtn) {
@@ -662,138 +520,10 @@ class Game {
         const className = newHero.name.replaceAll(" ", "-").replaceAll(".", "");
         carouselItem.classList.add("carousel-item", `${className}`);
         carouselTrack.append(carouselItem);
+        document.querySelector(".yBtn")?.addEventListener("click", GameActions.eat);
+        document.querySelector(".aBtn")?.addEventListener("click", GameActions.play);
+        document.querySelector(".bBtn")?.addEventListener("click", GameActions.nap);
     }
-    // static generateIngameContent() {
-    //     const startCont = document.querySelector(".startCont");
-    //     if (startCont) startCont.innerHTML = "";
-    //     const selectedName = Game.characterNames[Game.selectedCharacterIndex];
-    //     const selectedType = Game.characters[Game.selectedCharacterIndex];
-    //     Game.activeCharacters.push(selectedType);
-    //     console.log("Game.activeCharacters: " + Game.activeCharacters);
-    //     Game.generateSNESControl();
-    //     // const characterList = [...Game.characterNames];
-    //     const startHero = new Tamaguchi(
-    //     selectedName,
-    //     selectedType,
-    //     Game.currentLevelIndex
-    //     );
-    //     Game.heroInstances.push(startHero);
-    //     console.log("Game.heroInstances: " + Game.heroInstances[0]);
-    //     // const mode = document.createElement("h2");
-    //     // mode.innerText =
-    //     //   Game.currentLevelIndex === 0
-    //     //     ? "Easy"
-    //     //     : Game.currentLevelIndex === 1
-    //     //     ? "Medium"
-    //     //     : "Hardcore";
-    //     const filler = createDiv();
-    //     filler.classList.add("fillerBox");
-    //     const textbox = Game.generateTextbox();
-    //     const section_8bit = document.createElement("section");
-    //     section_8bit.classList.add("section_8bit");
-    //     const windowCont = createDiv();
-    //     windowCont.classList.add("windowCont", "wrapper", "carousel");
-    //     const glass = createImg();
-    //     glass.src = "../assets/img/glass.svg";
-    //     windowCont.append(glass);
-    //     const carouselTrack = createDiv();
-    //     carouselTrack.classList.add("carousel-track");
-    //     windowCont.append(carouselTrack);
-    //     Game.currentCharacterIndex = 1;
-    //     carouselTrack.style.transform = `translateX(-${Game.currentCharacterIndex * 380}px)`;
-    //     // carouselTrack.append(Game.createCharacterItem(selectedName));
-    //     const title = document.createElement("h2");
-    //     title.classList.add("heroName");
-    //     title.innerText = `${selectedName}`;
-    //     section_8bit.append(windowCont, title);
-    //     const statBars = Game.generateStatBars();
-    //     section_8bit.append(statBars);
-    //     const heroCont = createDiv();
-    //     heroCont.classList.add("heroCont");
-    //     heroCont.append(section_8bit);
-    //     const smallHeroMenu = Game.generateSmallHeroMenu();
-    //     const gameCont = createDiv();
-    //     gameCont.classList.add("gameCont");
-    //     gameCont.append(textbox, heroCont, filler);
-    //     startCont?.prepend(smallHeroMenu, gameCont);
-    //     Game.addCharacterToCarousel(selectedName);
-    //     // const track = document.querySelector(".carousel-track") as HTMLDivElement;
-    //     // const index = track.querySelectorAll(".carousel-item").length - 1;
-    //     // const itemWidth = 380;
-    //     carouselTrack.style.transition = "transform 0.4s ease-in-out";
-    //     // // clones
-    //     // const firstClone = characterList[0];
-    //     // const lastClone = characterList[characterList.length - 1];
-    //     // // add last clone
-    //     // carouselTrack.append(Game.createCharacterItem(lastClone));
-    //     // // add real items
-    //     // characterList.forEach(character => {
-    //     // carouselTrack.append(Game.createCharacterItem(character));
-    //     // });
-    //     // // add first clone
-    //     // carouselTrack.append(Game.createCharacterItem(firstClone));
-    //     // // initialize
-    //     // Game.currentCharacterIndex = 1;
-    //     // carouselTrack.style.transform = `translateX(-${Game.currentCharacterIndex * 380}px)`;
-    //   }
-    // static generateIngameContent() {
-    //     const startCont = document.querySelector(".startCont");
-    //     if (startCont) startCont.innerHTML = "";
-    //     const selectedName = Game.characterNames[Game.selectedCharacterIndex];
-    //     const selectedType = Game.characters[Game.selectedCharacterIndex];
-    //     Game.activeCharacters.push(selectedType);
-    //     Game.generateSNESControl();
-    //     const characterList = [...Game.characterNames];
-    //     const startHero = new Tamaguchi(
-    //     selectedName,
-    //     selectedType,
-    //     Game.currentLevelIndex
-    //     );
-    //     Game.addCharacterToCarousel(selectedName);
-    //     Game.heroInstances.push(startHero);
-    //     // const mode = document.createElement("h2");
-    //     // mode.innerText =
-    //     //   Game.currentLevelIndex === 0
-    //     //     ? "Easy"
-    //     //     : Game.currentLevelIndex === 1
-    //     //     ? "Medium"
-    //     //     : "Hardcore";
-    //     const filler = createDiv();
-    //     filler.classList.add("fillerBox");
-    //     const textbox = Game.generateTextbox();
-    //     const section_8bit = document.createElement("section");
-    //     section_8bit.classList.add("section_8bit");
-    //     const windowCont = createDiv();
-    //     windowCont.classList.add("windowCont", "wrapper", "carousel");
-    //     const glass = createImg();
-    //     glass.src = "../assets/img/glass.svg";
-    //     windowCont.append(glass);
-    //     const carouselTrack = createDiv();
-    //     carouselTrack.classList.add("carousel-track");
-    //     windowCont.append(carouselTrack);
-    //     Game.currentCharacterIndex = 1;
-    //     carouselTrack.style.transform = `translateX(-${Game.currentCharacterIndex * 380}px)`;
-    //     carouselTrack.append(Game.createCharacterItem(selectedName));
-    //     const title = document.createElement("h2");
-    //     title.classList.add("heroName");
-    //     title.innerText = `${selectedName}`;
-    //     section_8bit.append(windowCont, title);
-    //     const statBars = Game.generateStatBars();
-    //     section_8bit.append(statBars);
-    //     const heroCont = createDiv();
-    //     heroCont.classList.add("heroCont");
-    //     heroCont.append(section_8bit);
-    //     const smallHeroMenu = Game.generateSmallHeroMenu();
-    //     const gameCont = createDiv();
-    //     gameCont.classList.add("gameCont");
-    //     gameCont.append(textbox, heroCont, filler);
-    //     startCont?.prepend(smallHeroMenu, gameCont);
-    //     const track = document.querySelector(".carousel-track") as HTMLDivElement;
-    //     const index = track.querySelectorAll(".carousel-item").length - 1;
-    //     const itemWidth = 380;
-    //     carouselTrack.style.transition = "transform 0.4s ease-in-out";
-    //     carouselTrack.style.transform = `translateX(-${index * itemWidth}px)`;
-    //   }
     static generateLevelSelection() {
         Game.removeAllButtonFunction();
         document.querySelector(".startAnimController")?.classList.remove("startAnimController");
@@ -831,6 +561,30 @@ Game.activeCharacters = [];
 Game.heroInstances = [];
 Game.selectedCharacterIndex = 0;
 Game.currentHeroIndex = 0;
-Game.index = Game.heroInstances.length;
+class GameActions {
+    static eat() {
+        Game.heroInstances[Game.currentHeroIndex].eat();
+        GameActions.printAction();
+    }
+    ;
+    static nap() {
+        Game.heroInstances[Game.currentHeroIndex].nap();
+        GameActions.printAction();
+    }
+    ;
+    static play() {
+        Game.heroInstances[Game.currentHeroIndex].play();
+        GameActions.printAction();
+    }
+    static printAction() {
+        const textUl = document.querySelector(".textUl");
+        activityHistory.forEach(message => {
+            const li = document.createElement("li");
+            li.innerText = message;
+            textUl?.append(li);
+        });
+        activityHistory = [];
+    }
+}
 let activityHistory = [];
 const generateBtn = document.querySelector("#generateTamaguchi");
