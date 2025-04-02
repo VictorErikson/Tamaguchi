@@ -394,7 +394,7 @@ button {
 }
 .carousel .carousel-track .carousel-item {
   flex: 0 0 380px;
-  height: 415px;
+  height: 360px;
   background-size: cover;
   background-position: center;
 }
@@ -409,10 +409,6 @@ button {
 }
 .carousel .carousel-track .Ebba-Green {
   background-image: url("./assets/img/characters/8bit/dog.png");
-}
-
-:root {
-  --pixel-border-text: #313131; /* Inner border color: */
 }
 
 .countdownNmbr {
@@ -443,25 +439,49 @@ button {
   background-position: center;
   border: 2px solid black;
   overflow: hidden;
+  filter: brightness(50%);
 }
 .smallHeroMenuCont button.spartan {
   background-size: 260%;
   background-position: -30px -5px;
 }
+.smallHeroMenuCont button.spartan.dead {
+  background-size: 120%;
+  background-position: -5px -5px;
+  filter: brightness(60%);
+}
 .smallHeroMenuCont button.alien {
   background-position: -13px -17px;
+}
+.smallHeroMenuCont button.alien.dead {
+  background-size: 100%;
+  background-position: 0px 0px;
+  filter: brightness(60%);
 }
 .smallHeroMenuCont button.yoda {
   background-position: -13px -17px;
   background-size: 190%;
 }
+.smallHeroMenuCont button.yoda.dead {
+  background-size: 100%;
+  background-position: 0px 0px;
+  filter: brightness(60%);
+}
 .smallHeroMenuCont button.dog {
   background-size: 260%;
   background-position: -30px -30px;
 }
+.smallHeroMenuCont button.dog.dead {
+  background-size: 110%;
+  background-position: 0px 0px;
+  filter: brightness(60%);
+}
+.smallHeroMenuCont button:hover {
+  filter: brightness(90%);
+}
 .smallHeroMenuCont button.disabled {
   pointer-events: none;
-  filter: brightness(20%);
+  filter: brightness(100%);
 }
 
 .gameCont {
@@ -471,10 +491,6 @@ button {
   gap: 40px;
   height: -moz-fit-content;
   height: fit-content;
-}
-.gameCont .textbox, .gameCont .fillerBox {
-  width: 100%;
-  height: 100%;
 }
 .gameCont .carousel {
   width: -moz-fit-content;
@@ -489,28 +505,6 @@ button {
 }
 .gameCont .fillerBox {
   margin-right: 40px;
-}
-.gameCont .textbox {
-  margin-left: 40px;
-  background: #7E7C7F;
-  box-sizing: border-box;
-  border-left: 20px solid #313131;
-  border-right: 20px solid #313131;
-  overflow: hidden;
-  background-image: url(/assets/img/textBackground/brick1.png);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  box-shadow: calc(var(--pixel) * -1) 0 0 0 var(--pixel-border-text), var(--pixel) 0 0 0 var(--pixel-border-text), 0 calc(var(--pixel) * -2) 0 0 var(--pixel-border-text), 0 calc(var(--pixel) * 2) 0 0 var(--pixel-border-text), 0 calc(var(--pixel) * -5) 0 calc(var(--pixel) * -1) var(--pixel-border-text), 0 calc(var(--pixel) * 5) 0 calc(var(--pixel) * -1) var(--pixel-border-text), 0 calc(var(--pixel) * -7) 0 calc(var(--pixel) * -2) var(--pixel-border-text), 0 calc(var(--pixel) * 7) 0 calc(var(--pixel) * -2) var(--pixel-border-text), 0 calc(var(--pixel) * -10) 0 calc(var(--pixel) * -4) var(--pixel-border-text), 0 calc(var(--pixel) * 10) 0 calc(var(--pixel) * -4) var(--pixel-border-text), 0 calc(var(--pixel) * -13) 0 calc(var(--pixel) * -6) var(--pixel-border-text), 0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-border-text);
-}
-.gameCont .textbox:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 56px;
-  width: 100%;
-  z-index: 2;
 }
 .gameCont .carousel-item .statsCont {
   display: flex;
@@ -623,7 +617,7 @@ button {
 .heroCont section.section_8bit .statsCont {
   display: flex;
   flex-direction: column;
-  gap: 27px;
+  gap: 30px;
 }
 .heroCont section.section_8bit .statsCont > div {
   height: 40px;
@@ -632,34 +626,31 @@ button {
   position: relative;
 }
 .heroCont section.section_8bit .statsCont > div .ImgCont {
-  border: 4px solid #1f1f1f;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 40px;
-  transform: rotate(45deg);
   aspect-ratio: 1/1;
   position: absolute;
-  top: -3px;
-}
-.heroCont section.section_8bit .statsCont > div .ImgCont img {
-  transform: rotate(-45deg);
+  top: 0px;
 }
 .heroCont section.section_8bit .statsCont > div .ImgCont.energyImgCont {
-  background-color: #FEF165;
-  box-shadow: 0px 12px 0px 0px #f7ef9e inset;
+  left: 0px;
+}
+.heroCont section.section_8bit .statsCont > div .ImgCont.energyImgCont .energyImg {
+  height: 65px;
 }
 .heroCont section.section_8bit .statsCont > div .ImgCont.happinessImgCont {
-  background-color: #d83b42;
-  box-shadow: 0px 12px 0px 0px #ee3a43 inset;
+  left: -5px;
+}
+.heroCont section.section_8bit .statsCont > div .ImgCont.happinessImgCont .happinessImg {
+  height: 60px;
 }
 .heroCont section.section_8bit .statsCont > div .ImgCont.fullnessImgCont {
-  background-color: #5DDDAD;
-  box-shadow: 0px 12px 0px 0px #71e7bc inset;
+  left: -30px;
 }
-.heroCont section.section_8bit .statsCont > div .barSymbol {
-  height: 36px;
-  width: 36px;
+.heroCont section.section_8bit .statsCont > div .ImgCont.fullnessImgCont .fullnessImg {
+  height: 115px;
 }
 .heroCont section.section_8bit .statsCont > div .bar {
   height: 100%;
@@ -674,6 +665,7 @@ button {
   width: calc(50% + 4px);
   transition: width 0.3s ease;
   border: 4px solid #1f1f1f;
+  border-left: none;
 }
 .heroCont section.section_8bit .statsCont > div .bar .happinessFill {
   background-color: #d83b42;
@@ -699,150 +691,57 @@ button {
   text-wrap: nowrap;
 }
 
-/*
-.carousel{
-    width: fit-content;
-    overflow: visible;
-    position: relative;
-
-    .carousel-track{
-        height: fit-content;
-        display: flex;
-        transition: transform 0.4s ease-in-out;
-        will-change: transform;
-
-        .carousel-item{
-            height: fit-content;
-            flex: 0 0 380px;
-            background-size: cover;
-            background-position: center;
-
-            section.section_8bit{
-                position: relative;
-                display: block;
-                unicode-bidi: isolate;
-
-                .wrapper.windowCont{
-                    width: 380px;
-                    height: 415px;
-                    background-size: 120%;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    overflow: hidden;
-                    position: relative;
-                    display: flex;
-                    justify-content: space-between;
-                    margin-bottom: 40px;
-                    box-shadow: inset 0 10px 8px rgba(0, 0, 0, 0.6);
-                    border-left: 20px solid #E3E1E4;
-                    border-right: 20px solid #E3E1E4;
-                    box-shadow: calc(var(--pixel)* -1) 0 0 0 var(--pixel-border), var(--pixel) 0 0 0 var(--pixel-border), 0 calc(var(--pixel)* -2) 0 0 var(--pixel-border), 0 calc(var(--pixel)* 2) 0 0 var(--pixel-border), 0 calc(var(--pixel)* -5) 0 calc(var(--pixel)* -1) var(--pixel-border), 0 calc(var(--pixel)* 5) 0 calc(var(--pixel)* -1) var(--pixel-border), 0 calc(var(--pixel)* -7) 0 calc(var(--pixel)* -2) var(--pixel-border), 0 calc(var(--pixel)* 7) 0 calc(var(--pixel)* -2) var(--pixel-border), 0 calc(var(--pixel)* -10) 0 calc(var(--pixel)* -4) var(--pixel-border), 0 calc(var(--pixel)* 10) 0 calc(var(--pixel)* -4) var(--pixel-border), 0 calc(var(--pixel)* -13) 0 calc(var(--pixel)* -6) var(--pixel-border), 0 calc(var(--pixel)* 13) 0 calc(var(--pixel)* -6) var(--pixel-border);
-
-                    .windowCont img {
-                        position: absolute;
-                        height: 110%;
-                        z-index: 1;
-                    }
-                    img {
-                        overflow-clip-margin: content-box;
-                        overflow: clip;
-                    }
-                }
-                .windowCont::after {
-                    content: "";
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    height: 56px;
-                    width: 100%;
-                    background: #E3E1E4;
-                    z-index: 2;
-                }
-                .statsCont{
-                    display: flex;
-                    flex-direction: column;
-                    gap: 27px;
-                    > div{
-                        height: 40px;
-                        display: flex;
-                        gap: 20px;
-                        position: relative;
-
-                        .ImgCont{
-                            border: 4px solid #1f1f1f;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            height: calc(40px);
-                            transform: rotate(45deg);
-                            // display: inline-block;
-                            aspect-ratio: 1 / 1;
-                            position: absolute;
-                            top: -3px;
-                            img{
-                                transform: rotate(-45deg);
-                            }
-
-                            &.energyImgCont{
-                                background-color: #FEF165;
-                                box-shadow: 0px 12px 0px 0px #f7ef9e inset;
-                            }
-
-                            &.happinessImgCont{
-                                background-color: #d83b42;
-                                box-shadow: 0px 12px 0px 0px #ee3a43 inset;
-                            }
-                            &.fullnessImgCont{
-                                background-color: #5DDDAD;
-                                box-shadow: 0px 12px 0px 0px #71e7bc inset;
-                            }
-                        }
-
-
-                        .barSymbol{
-                            height: 36px;
-                            width: 36px;
-                        }
-
-                        .bar{
-                            height: 100%;
-                            width: 100%;
-                            margin-left: 20px;
-                            border-radius: 30px;
-                            display: flex;
-                            align-items: center;
-
-
-                            .fill{
-                                // box-sizing: border-box;
-                                height: calc(100% + 8px);
-                                // width: calc(50% + 4px);
-                                transition: width 0.3s ease;
-                                // border-radius: 30px;
-                                border: 4px solid #1f1f1f;
-                            }
-
-                            .happinessFill{
-                                background-color: #d83b42;
-                                box-shadow: 0px 12px 0px 0px #ee3a43 inset;
-                            }
-                            .energyFill{
-                                background-color: #FEF165;
-                                box-shadow: 0px 12px 0px 0px #f7ef9e inset;
-                            }
-                            .fullnessFill{
-                                background-color: #5DDDAD;
-                                box-shadow: 0px 12px 0px 0px #71e7bc inset;
-                            }
-
-
-                        }
-                    }
-                }
-            }
-        }
-    }
+:root {
+  --pixel-border-text: #353131;
 }
 
-
-*//*# sourceMappingURL=style.css.map */
+.gameCont .textbox, .gameCont .fillerBox {
+  width: 100%;
+  height: 100%;
+}
+.gameCont .textbox {
+  margin-left: 40px;
+  background: #7E7C7F;
+  box-sizing: border-box;
+  border-left: 20px solid #353131;
+  border-right: 20px solid #353131;
+  overflow-y: auto;
+  background-image: url(/assets/img/textBackground/brick1.png);
+  max-height: 629px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  box-shadow: calc(var(--pixel) * -1) 0 0 0 var(--pixel-border-text), var(--pixel) 0 0 0 var(--pixel-border-text), 0 calc(var(--pixel) * -2) 0 0 var(--pixel-border-text), 0 calc(var(--pixel) * 2) 0 0 var(--pixel-border-text), 0 calc(var(--pixel) * -5) 0 calc(var(--pixel) * -1) var(--pixel-border-text), 0 calc(var(--pixel) * 5) 0 calc(var(--pixel) * -1) var(--pixel-border-text), 0 calc(var(--pixel) * -7) 0 calc(var(--pixel) * -2) var(--pixel-border-text), 0 calc(var(--pixel) * 7) 0 calc(var(--pixel) * -2) var(--pixel-border-text), 0 calc(var(--pixel) * -10) 0 calc(var(--pixel) * -4) var(--pixel-border-text), 0 calc(var(--pixel) * 10) 0 calc(var(--pixel) * -4) var(--pixel-border-text), 0 calc(var(--pixel) * -13) 0 calc(var(--pixel) * -6) var(--pixel-border-text), 0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-border-text);
+}
+.gameCont .textbox::-webkit-scrollbar {
+  display: none;
+}
+.gameCont .textbox .textUl {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0px;
+  min-height: 100%;
+  margin: 0px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.gameCont .textbox .textUl li {
+  list-style-type: none;
+  border-top: 2px solid rgb(51, 51, 51);
+  padding: 15px 20px;
+  margin: 0px;
+}
+.gameCont .textbox .textUl li:nth-child(even) {
+  background-color: rgba(155, 155, 155, 0.6);
+}
+.gameCont .textbox:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 56px;
+  width: 100%;
+  z-index: 2;
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,84 @@
+:root {
+    --pixel-border-text: #353131; 
+}
+
+.gameCont{
+    .textbox, .fillerBox{
+        width: 100%;
+        height: 100%;
+    }
+    .textbox{
+        // width: calc(100% - 40px);
+        margin-left: 40px;
+        background: #7E7C7F;
+        box-sizing: border-box;
+        border-left: 20px solid #353131;
+        border-right: 20px solid #353131;
+        // overflow: hidden;
+        overflow-y: auto;
+        background-image: url(/assets/img/textBackground/brick1.png);
+        max-height: 629px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        scrollbar-width: none;    
+        -ms-overflow-style: none; 
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .textUl{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0px;
+            min-height: 100%;
+            margin: 0px;
+            background-color: rgba(255, 255, 255, 0.2); 
+
+            li{
+                list-style-type: none;
+                border-top: 2px solid rgb(51, 51, 51);
+                padding: 15px 20px;
+                margin: 0px;
+                &:nth-child(even) {
+                    background-color: rgba($color: #9b9b9b, $alpha: 0.6);
+                }
+            }
+
+            
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 56px; 
+            width: 100%;
+            // background: #E3E1E4; 
+            z-index: 2; 
+            
+        }
+    
+        box-shadow:
+        
+            
+        /* Pixel Border Layer 1 */
+            calc(var(--pixel) * -1) 0 0 0 var(--pixel-border-text),
+            var(--pixel) 0 0 0 var(--pixel-border-text),
+            0 calc(var(--pixel) * -2) 0 0 var(--pixel-border-text),
+            0 calc(var(--pixel) * 2) 0 0 var(--pixel-border-text),
+            0 calc(var(--pixel) * -5) 0 calc(var(--pixel) * -1) var(--pixel-border-text),
+            0 calc(var(--pixel) * 5) 0 calc(var(--pixel) * -1) var(--pixel-border-text),
+            0 calc(var(--pixel) * -7) 0 calc(var(--pixel) * -2) var(--pixel-border-text),
+            0 calc(var(--pixel) * 7) 0 calc(var(--pixel) * -2) var(--pixel-border-text),
+            0 calc(var(--pixel) * -10) 0 calc(var(--pixel) * -4) var(--pixel-border-text),
+            0 calc(var(--pixel) * 10) 0 calc(var(--pixel) * -4) var(--pixel-border-text),
+            0 calc(var(--pixel) * -13) 0 calc(var(--pixel) * -6) var(--pixel-border-text),
+            0 calc(var(--pixel) * 13) 0 calc(var(--pixel) * -6) var(--pixel-border-text),
+
+        
+    }
+}

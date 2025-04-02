@@ -9,6 +9,7 @@ class Tamaguchi {
     happiness: number;
     mode: number;
     index: number;
+    dead: boolean;
 
     constructor(name: CharacterName, character: CharacterType, mode: number){
         this.name = name;
@@ -18,59 +19,126 @@ class Tamaguchi {
         this.happiness = 50;
         this.mode = mode;
         this.index = Game.heroInstances.length;
+        this.dead = false;
 
         this.startLoop();
     }
 
     private intervalId: number | undefined;
+    private imageResetTimeout: number | null = null;
 
     nap(){
-        this.energy += 40;
-        this.happiness -= 10;
-        this.fullness -= 10;
-        activityHistory.push(`${this.name} takes a nap and restores some energy... 😴💤`);
+        
+        if(!this.dead){
+            this.energy += 40;
+            this.happiness -= 10;
+            this.fullness -= 10;
+            activityHistory.push(`${this.name} takes a nap and restores some energy... 😴💤`);
 
-        this.MinMaxStats();
-        this.checkIfDead();
-        this.updateBars();
+            const carouselItems = document.querySelectorAll(".carousel-track > .carousel-item");
+
+            if(carouselItems.length > this.index){
+                const hero = carouselItems[this.index] as HTMLElement
+                hero.style.backgroundImage = `url("/assets/img/characters/8bit/${this.character}-sleeping.png")`;
+
+                if (this.imageResetTimeout !== null) {
+                    clearTimeout(this.imageResetTimeout);
+                    this.imageResetTimeout = null;
+                }
+
+                this.imageResetTimeout = setTimeout(() => {
+                    if (!this.dead) {
+                        hero.style.backgroundImage = `url("/assets/img/characters/8bit/${this.character}.png")`;
+                    }
+                    this.imageResetTimeout = null;
+                }, 3000);
+            }; 
+
+            this.MinMaxStats();
+            this.checkIfDead();
+            this.updateBars();
+        }
     }
     
     play(){
-        this.happiness += 30;
-        this.fullness -= 10;
-        this.energy -= 10;
-        
-        if(this.character === "spartan"){
-            activityHistory.push(`${this.name} starts fighting in an epic battle! 🛡️⚔️`);
-        } else if(this.character === "alien"){
-            activityHistory.push(`${this.name} starts experimenting on an innocent human. This brings him great pleasure.👽`);
-        }else if (this.character === "dog"){
-            activityHistory.push(`${this.name} Starts playing some guitar. Sounds great! 🎸🎵`);
-        }else{activityHistory.push(`${this.name} starts playing.`);}
+        if(!this.dead){
+            this.happiness += 30;
+            this.fullness -= 10;
+            this.energy -= 10;
+            
+            if(this.character === "spartan"){
+                activityHistory.push(`${this.name} starts fighting in an epic battle! 🛡️⚔️`);
+            } else if(this.character === "alien"){
+                activityHistory.push(`${this.name} starts experimenting on an innocent human. This brings him great pleasure.👽`);
+            }else if (this.character === "dog"){
+                activityHistory.push(`${this.name} Starts playing some guitar. Sounds great! 🎸🎵`);
+            }else{activityHistory.push(`${this.name} starts playing.`);}
 
-        this.MinMaxStats();
-        this.checkIfDead();
-        this.updateBars();
+            const carouselItems = document.querySelectorAll(".carousel-track > .carousel-item");
+
+            if(carouselItems.length > this.index){
+                const hero = carouselItems[this.index] as HTMLElement
+                hero.style.backgroundImage = `url("/assets/img/characters/8bit/${this.character}-playing.png")`;
+
+                if (this.imageResetTimeout !== null) {
+                    clearTimeout(this.imageResetTimeout);
+                    this.imageResetTimeout = null;
+                }
+
+                this.imageResetTimeout = setTimeout(() => {
+                    if (!this.dead) {
+                        hero.style.backgroundImage = `url("/assets/img/characters/8bit/${this.character}.png")`;
+                    }
+                    this.imageResetTimeout = null;
+                }, 3000);
+            }; 
+
+            this.MinMaxStats();
+            this.checkIfDead();
+            this.updateBars();
+        }
     }
     
     eat(){
-        this.fullness += 30;
-        this.happiness += 5;
-        this.energy -= 15;
+        if(!this.dead){
+            this.fullness += 30;
+            this.happiness += 5;
+            this.energy -= 15;
 
-        if(this.character === "alien"){
-            activityHistory.push(`${this.name} starts eating some brain, yummy! 🧠`);
-        } else {
-        activityHistory.push(`${this.name} starts eating a delicious meal. 🍕🍎`);
+            if(this.character === "alien"){
+                activityHistory.push(`${this.name} starts eating some brain, yummy! 🧠`);
+            } else {
+            activityHistory.push(`${this.name} starts eating a delicious meal. 🍕🍎`);
+            }
+
+            const carouselItems = document.querySelectorAll(".carousel-track > .carousel-item");
+
+            if(carouselItems.length > this.index){
+                const hero = carouselItems[this.index] as HTMLElement
+                hero.style.backgroundImage = `url("/assets/img/characters/8bit/${this.character}-eating.png")`;
+
+                if (this.imageResetTimeout !== null) {
+                    clearTimeout(this.imageResetTimeout);
+                    this.imageResetTimeout = null;
+                }
+
+                this.imageResetTimeout = setTimeout(() => {
+                    if (!this.dead) {
+                        hero.style.backgroundImage = `url("/assets/img/characters/8bit/${this.character}.png")`;
+                    }
+                    this.imageResetTimeout = null;
+                }, 3000);
+            }; 
+            
+            this.MinMaxStats();
+            this.checkIfDead();
+            this.updateBars();
+            
         }
-
-        this.MinMaxStats();
-        this.checkIfDead();
-        this.updateBars();
     }
 
     private startLoop(): void {
-        let time = this.mode === 0 ? 10000 : this.mode === 1 ? 5000 : 1000;
+        let time = this.mode === 0 ? 10000000 : this.mode === 1 ? 5000 : 1000;
 
         this.intervalId = setInterval(() => {
             this.updateStats();
@@ -78,13 +146,15 @@ class Tamaguchi {
     }
 
     private updateStats(): void {
-        this.energy -= 15;
-        this.fullness -= 15;
-        this.happiness -= 15;
+        if(!this.dead){
+            this.energy -= 15;
+            this.fullness -= 15;
+            this.happiness -= 15;
 
-        this.MinMaxStats();
-        this.checkIfDead();
-        this.updateBars();
+            this.MinMaxStats();
+            this.checkIfDead();
+            this.updateBars();
+        }
     }
 
     private updateBars(): void {
@@ -93,11 +163,12 @@ class Tamaguchi {
             Game.updateFullness(this.fullness);
             Game.updateHappiness(this.happiness);
         }
+
     }
 
     private checkIfDead(): void {
         if (this.energy === 0 || this.fullness === 0 || this.happiness === 0){
-            this.dead();
+            this.dying();
         }
     }
 
@@ -107,7 +178,9 @@ class Tamaguchi {
         this.happiness = Math.max(0, Math.min(this.happiness, 100));
     }
 
-    private dead(): void {
+    private dying(): void {
+        this.dead = true;
+
         if (this.intervalId !== undefined) {
             clearInterval(this.intervalId);
         }
@@ -116,7 +189,7 @@ class Tamaguchi {
             this.happiness = 0;
             this.fullness = 0;
         } else if(this.fullness === 0){
-            activityHistory.push(`${this.name} died from hunger! 🍽️💀`);
+            activityHistory.push(`${this.name} starves to death! 🍽️💀`);
             this.energy = 0;
             this.happiness = 0;
         }else {
@@ -125,8 +198,23 @@ class Tamaguchi {
             this.fullness = 0;
         }
         GameActions.printAction();
+        this.updateBars();
+
+        const smallMenuHero: HTMLImageElement | null = document.querySelector(`.smallHeroMenuCont > .${this.character}`);
+        smallMenuHero?.classList.add("dead");
+
+        if(smallMenuHero){smallMenuHero.style.backgroundImage = `url("assets/img/characters/8bit/${this.character}-skull.png")`};
+
+
+        const carouselItems = document.querySelectorAll(".carousel-track > .carousel-item");
+
+        if(carouselItems.length > this.index){
+            const hero = carouselItems[this.index] as HTMLElement
+            hero.style.backgroundImage = `url("/assets/img/characters/8bit/${this.character}-dead.png")`;
+        }; 
 
     }
+
 
 }
 
@@ -467,7 +555,7 @@ class Game {
         energyImgCont.classList.add("energyImgCont", "ImgCont");
         const energyImg = createImg();
         energyImg.classList.add("energyImg", "barSymbol")
-        energyImg.src = "/assets/icons/stats/energy_symbol.svg";
+        energyImg.src = "/assets/icons/stats/new/energy-pointy.svg";
         energyImgCont.append(energyImg);
 
         const energyBar = createDiv();
@@ -482,7 +570,7 @@ class Game {
         const happinessImgCont = createDiv();
         happinessImgCont.classList.add("happinessImgCont", "ImgCont");
         const happinessImg = createImg();
-        happinessImg.src = "/assets/icons/stats/happiness/happy.svg"
+        happinessImg.src = "/assets/icons/stats/new/smiley2.png"
         happinessImg.classList.add("happinessImg", "barSymbol");
         happinessImgCont.append(happinessImg);
         const happinessBar = createDiv();
@@ -498,7 +586,7 @@ class Game {
         const fullnessImgCont = createDiv();
         fullnessImgCont.classList.add("fullnessImgCont", "ImgCont");
         const fullnessImg = createImg();
-        fullnessImg.src = "/assets/icons/stats/fullness.svg";
+        fullnessImg.src = "/assets/icons/stats/new/fullness.png";
         fullnessImg.classList.add("fullnessImg", "barSymbol");
         fullnessImgCont.append(fullnessImg);
         const fullnessBar = createDiv();
@@ -529,12 +617,6 @@ class Game {
                 const index = Game.characters.indexOf(char);
                 const charName = Game.characterNames[index];
                 charBtn.classList.add("disabled");
-                // const newHero = new Tamaguchi(
-                //     charName,
-                //     char,
-                //     Game.currentLevelIndex
-                //     );
-                // Game.heroInstances.push(newHero);
                 Game.addNewHero(charName, char)
             })
 
@@ -730,6 +812,8 @@ class GameActions {
     }
     static printAction() {
         const textUl = document.querySelector(".textUl");
+        const textbox = document.querySelector(".textbox");
+
         activityHistory.forEach(message => {
             const li = document.createElement("li");
             li.innerText = message;
@@ -737,6 +821,9 @@ class GameActions {
         })
         activityHistory = [];
 
+        if (textbox) {
+            textbox.scrollTop = textbox.scrollHeight;
+        }
     }
 }
 
