@@ -51,7 +51,7 @@ class Tamaguchi {
                 activityHistory.push(`${this.name} starts experimenting on an innocent human. This brings him great pleasure.👽`);
             }
             else if (this.character === "dog") {
-                activityHistory.push(`${this.name} Starts playing some guitar. Sounds great! 🎸🎵`);
+                activityHistory.push(`${this.name} starts playing some guitar. Sounds great! 🎸🎵`);
             }
             else {
                 activityHistory.push(`${this.name} starts playing.`);
@@ -110,7 +110,7 @@ class Tamaguchi {
         }
     }
     startLoop() {
-        let time = this.mode === 0 ? 10000000 : this.mode === 1 ? 5000 : 1000;
+        let time = this.mode === 0 ? 10000 : this.mode === 1 ? 5000 : 1000;
         this.intervalId = setInterval(() => {
             this.updateStats();
         }, time);
@@ -126,6 +126,13 @@ class Tamaguchi {
         }
     }
     updateBars() {
+        const smallMenuHero = document.querySelector(`.smallHeroMenuCont > .${this.character}`);
+        if (this.energy < 35 || this.fullness < 35 || this.happiness < 35) {
+            smallMenuHero?.classList.add("low");
+        }
+        else {
+            smallMenuHero?.classList.remove("low");
+        }
         if (Game.currentHeroIndex === this.index) {
             Game.updateEnergy(this.energy);
             Game.updateFullness(this.fullness);
@@ -158,7 +165,7 @@ class Tamaguchi {
             this.happiness = 0;
         }
         else {
-            activityHistory.push(`${this.name} died of boredom! 💀⚰️`);
+            activityHistory.push(`${this.name} died from boredom! 💀⚰️`);
             this.energy = 0;
             this.fullness = 0;
         }
@@ -423,14 +430,53 @@ class Game {
         return textbox;
     }
     static updateEnergy(percentage) {
+        const container = document.querySelector(".statsCont");
+        if (percentage === 0) {
+            if (container) {
+                container.style.visibility = "hidden";
+            }
+            ;
+        }
+        else {
+            if (container) {
+                container.style.visibility = "visible";
+            }
+            ;
+        }
         const energyFill = document.querySelector(".energyFill");
         energyFill && (energyFill.style.width = `${percentage}%`);
     }
     static updateHappiness(percentage) {
+        const container = document.querySelector(".statsCont");
+        if (percentage === 0) {
+            if (container) {
+                container.style.visibility = "hidden";
+            }
+            ;
+        }
+        else {
+            if (container) {
+                container.style.visibility = "visible";
+            }
+            ;
+        }
         const happinessFill = document.querySelector(".happinessFill");
         happinessFill && (happinessFill.style.width = `${percentage}%`);
     }
     static updateFullness(percentage) {
+        const container = document.querySelector(".statsCont");
+        if (percentage === 0) {
+            if (container) {
+                container.style.visibility = "hidden";
+            }
+            ;
+        }
+        else {
+            if (container) {
+                container.style.visibility = "visible";
+            }
+            ;
+        }
         const fullnessFill = document.querySelector(".fullnessFill");
         fullnessFill && (fullnessFill.style.width = `${percentage}%`);
     }
@@ -456,7 +502,7 @@ class Game {
         const happinessImgCont = createDiv();
         happinessImgCont.classList.add("happinessImgCont", "ImgCont");
         const happinessImg = createImg();
-        happinessImg.src = "/assets/icons/stats/new/smiley2.png";
+        happinessImg.src = "/assets/icons/stats/new/happiness8bit.svg";
         happinessImg.classList.add("happinessImg", "barSymbol");
         happinessImgCont.append(happinessImg);
         const happinessBar = createDiv();
@@ -471,7 +517,7 @@ class Game {
         const fullnessImgCont = createDiv();
         fullnessImgCont.classList.add("fullnessImgCont", "ImgCont");
         const fullnessImg = createImg();
-        fullnessImg.src = "/assets/icons/stats/new/fullness.png";
+        fullnessImg.src = "/assets/icons/stats/new/fullness.svg";
         fullnessImg.classList.add("fullnessImg", "barSymbol");
         fullnessImgCont.append(fullnessImg);
         const fullnessBar = createDiv();
@@ -544,6 +590,15 @@ class Game {
             startCont.innerHTML = "";
         const selectedName = Game.characterNames[Game.selectedCharacterIndex];
         const selectedType = Game.characters[Game.selectedCharacterIndex];
+        if (Game.currentAudio) {
+            Game.currentAudio.pause();
+            Game.currentAudio.currentTime = 0;
+        }
+        const audio = new Audio("assets/music/ingame.wav");
+        audio.play();
+        audio.loop = true;
+        audio.volume = 0.2;
+        Game.currentAudio = audio;
         Game.activeCharacters.push(selectedType);
         Game.generateSNESControl();
         // const mode = document.createElement("h2");
@@ -593,6 +648,12 @@ class Game {
     static generateLevelSelection() {
         Game.removeAllButtonFunction();
         document.querySelector(".startAnimController")?.classList.remove("startAnimController");
+        const audio = new Audio("assets/music/menu2.wav");
+        audio.play();
+        console.log(audio);
+        audio.loop = true;
+        audio.volume = 0.3;
+        Game.currentAudio = audio;
         document.querySelector("h1")?.remove();
         const section_8bit = Game.generateHeroBox();
         const level = document.createElement("h2");
@@ -627,6 +688,7 @@ Game.activeCharacters = [];
 Game.heroInstances = [];
 Game.selectedCharacterIndex = 0;
 Game.currentHeroIndex = 0;
+Game.currentAudio = null;
 class GameActions {
     static eat() {
         Game.heroInstances[Game.currentHeroIndex].eat();

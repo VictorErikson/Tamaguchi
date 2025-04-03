@@ -29,6 +29,7 @@
         background-position: center;
         border: 2px solid black;
         overflow: hidden;
+        position: relative;
         filter: brightness(50%);
 
         &.spartan{
@@ -66,6 +67,21 @@
                 filter: brightness(60%);
             }
         }
+        &.low{
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-color: rgba(255, 0, 0, 0.6); // red overlay
+                opacity: 0;
+                pointer-events: none;
+                animation: blinkRed 1s infinite;
+            }
+            &.dead::after {
+                animation: none;
+                opacity: 0;
+              }
+        }
         &:hover{
             filter: brightness(90%);
         }
@@ -78,6 +94,14 @@
         // }
         
     }
+}
+@keyframes blinkRed {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .gameCont{
@@ -264,8 +288,8 @@
                     //     transform: rotate(-45deg);
                     // }
                     &.energyImgCont{
-                        left: 0px;
-                        // left: -12px;
+                        left: 5px;
+                        transform: rotate(-10deg);
                         .energyImg{
                             height: 65px;
 
@@ -278,6 +302,7 @@
                         left: -5px;
 
                         .happinessImg{
+                            // height: 60px;
                             height: 60px;
                             
                             // background-color: #d83b42;
@@ -285,9 +310,10 @@
                         }
                     }
                     &.fullnessImgCont{
-                        left: -30px;
+                        left: -6px;
                         .fullnessImg{
-                            height: 115px;
+                            height: 60px;
+                            // height: 115px;
                             
                             // background-color: #5DDDAD;
                             // box-shadow: 0px 12px 0px 0px #71e7bc inset;

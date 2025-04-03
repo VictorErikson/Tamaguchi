@@ -439,6 +439,7 @@ button {
   background-position: center;
   border: 2px solid black;
   overflow: hidden;
+  position: relative;
   filter: brightness(50%);
 }
 .smallHeroMenuCont button.spartan {
@@ -476,6 +477,19 @@ button {
   background-position: 0px 0px;
   filter: brightness(60%);
 }
+.smallHeroMenuCont button.low::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  animation: blinkRed 1s infinite;
+}
+.smallHeroMenuCont button.low.dead::after {
+  animation: none;
+  opacity: 0;
+}
 .smallHeroMenuCont button:hover {
   filter: brightness(90%);
 }
@@ -484,6 +498,14 @@ button {
   filter: brightness(100%);
 }
 
+@keyframes blinkRed {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
 .gameCont {
   display: flex;
   justify-content: space-between;
@@ -635,7 +657,8 @@ button {
   top: 0px;
 }
 .heroCont section.section_8bit .statsCont > div .ImgCont.energyImgCont {
-  left: 0px;
+  left: 5px;
+  transform: rotate(-10deg);
 }
 .heroCont section.section_8bit .statsCont > div .ImgCont.energyImgCont .energyImg {
   height: 65px;
@@ -647,10 +670,10 @@ button {
   height: 60px;
 }
 .heroCont section.section_8bit .statsCont > div .ImgCont.fullnessImgCont {
-  left: -30px;
+  left: -6px;
 }
 .heroCont section.section_8bit .statsCont > div .ImgCont.fullnessImgCont .fullnessImg {
-  height: 115px;
+  height: 60px;
 }
 .heroCont section.section_8bit .statsCont > div .bar {
   height: 100%;
