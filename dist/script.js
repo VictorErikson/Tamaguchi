@@ -14,6 +14,7 @@ class Tamaguchi {
     }
     nap() {
         if (!this.dead) {
+            Game.klickSfx.play();
             this.energy += 40;
             this.happiness -= 10;
             this.fullness -= 10;
@@ -41,6 +42,7 @@ class Tamaguchi {
     }
     play() {
         if (!this.dead) {
+            Game.klickSfx.play();
             this.happiness += 30;
             this.fullness -= 10;
             this.energy -= 10;
@@ -79,6 +81,7 @@ class Tamaguchi {
     }
     eat() {
         if (!this.dead) {
+            Game.klickSfx.play();
             this.fullness += 30;
             this.happiness += 5;
             this.energy -= 15;
@@ -263,6 +266,7 @@ class Game {
     }
     static changeMode(direction) {
         Game.currentLevelIndex += direction;
+        Game.klickSfx.play();
         if (Game.currentLevelIndex < 0) {
             Game.currentLevelIndex = 2;
         }
@@ -298,6 +302,7 @@ class Game {
         }
     }
     static changeCharacter(direction) {
+        Game.klickSfx.play();
         const track = document.querySelector(".carousel-track");
         const itemWidth = 380;
         const totalItems = Game.characterNames.length;
@@ -341,6 +346,7 @@ class Game {
     }
     static generateHeroSelection() {
         startCont && (startCont.innerHTML = "");
+        Game.klickSfx.play();
         Game.generateSNESControl();
         const section_8bit = document.createElement("section");
         section_8bit.classList.add("section_8bit");
@@ -390,6 +396,7 @@ class Game {
     static countdown(startNmbr, runFunction) {
         const startCont = document.querySelector(".startCont");
         startCont && (startCont.innerHTML = "");
+        Game.klickSfx.play();
         let count = startNmbr;
         let countdownNmbr = document.createElement("h1");
         countdownNmbr.classList.add("countdownNmbr");
@@ -397,6 +404,7 @@ class Game {
         startCont.append(countdownNmbr);
         Game.generateSNESControl();
         const interval = setInterval(() => {
+            Game.klickSfx.play();
             count--;
             if (count === 0) {
                 countdownNmbr.innerText = `START`;
@@ -550,6 +558,7 @@ class Game {
         return smallHeroMenuCont;
     }
     static addNewHero(heroName, heroType) {
+        Game.klickSfx.play();
         const newHero = new Tamaguchi(heroName, heroType, Game.currentLevelIndex);
         Game.heroInstances.push(newHero);
         const carouselTrack = document.querySelector(".carousel-track");
@@ -566,6 +575,7 @@ class Game {
             Game.updateEnergy(Game.heroInstances[Game.currentHeroIndex].energy);
         };
         const moveCarousel = (direction) => {
+            Game.klickSfx.play();
             Game.currentHeroIndex += direction;
             Game.currentHeroIndex = Math.max(0, Math.min(Game.currentHeroIndex, Activeheroes.length - 1));
             carouselTrack.style.transform = `translateX(-${Game.currentHeroIndex * 380}px)`;
@@ -590,6 +600,7 @@ class Game {
             startCont.innerHTML = "";
         const selectedName = Game.characterNames[Game.selectedCharacterIndex];
         const selectedType = Game.characters[Game.selectedCharacterIndex];
+        Game.klickSfx.play();
         if (Game.currentAudio) {
             Game.currentAudio.pause();
             Game.currentAudio.currentTime = 0;
@@ -646,13 +657,25 @@ class Game {
         document.querySelector(".bBtn")?.addEventListener("click", GameActions.nap);
     }
     static generateLevelSelection() {
+        Game.klickSfx.volume = 0.3;
+        Game.klickSfx.play();
         Game.removeAllButtonFunction();
         document.querySelector(".startAnimController")?.classList.remove("startAnimController");
         const audio = new Audio("assets/music/menu2.wav");
+        audio.volume = 0;
         audio.play();
-        console.log(audio);
+        let volume = 0;
+        const fadeIn = setInterval(() => {
+            volume += 0.01;
+            if (volume >= 0.3) {
+                audio.volume = 0.3;
+                clearInterval(fadeIn);
+            }
+            else {
+                audio.volume = volume;
+            }
+        }, 100);
         audio.loop = true;
-        audio.volume = 0.3;
         Game.currentAudio = audio;
         document.querySelector("h1")?.remove();
         const section_8bit = Game.generateHeroBox();
@@ -689,6 +712,7 @@ Game.heroInstances = [];
 Game.selectedCharacterIndex = 0;
 Game.currentHeroIndex = 0;
 Game.currentAudio = null;
+Game.klickSfx = new Audio("assets/music/klick.wav");
 class GameActions {
     static eat() {
         Game.heroInstances[Game.currentHeroIndex].eat();

@@ -30,6 +30,7 @@ class Tamaguchi {
     nap(){
         
         if(!this.dead){
+            Game.klickSfx.play();
             this.energy += 40;
             this.happiness -= 10;
             this.fullness -= 10;
@@ -62,6 +63,7 @@ class Tamaguchi {
     
     play(){
         if(!this.dead){
+            Game.klickSfx.play();
             this.happiness += 30;
             this.fullness -= 10;
             this.energy -= 10;
@@ -101,6 +103,7 @@ class Tamaguchi {
     
     eat(){
         if(!this.dead){
+            Game.klickSfx.play();
             this.fullness += 30;
             this.happiness += 5;
             this.energy -= 15;
@@ -246,7 +249,8 @@ class Game {
     static selectedCharacterIndex: number = 0;
     static currentHeroIndex: number = 0;
     static currentAudio: HTMLAudioElement | null = null;
-    
+    static klickSfx = new Audio("assets/music/klick.wav");
+        
 
 
     static generateSNESControl() {
@@ -333,7 +337,7 @@ class Game {
 
     static changeMode(direction: number) {
         Game.currentLevelIndex += direction;
-
+        Game.klickSfx.play();
         if(Game.currentLevelIndex < 0){
             Game.currentLevelIndex = 2;
         } else if (Game.currentLevelIndex >= 3){
@@ -369,7 +373,7 @@ class Game {
     }
 
     static changeCharacter(direction: number) {
-
+        Game.klickSfx.play();
         const track = document.querySelector(".carousel-track") as HTMLDivElement;
         const itemWidth = 380;
         const totalItems = Game.characterNames.length;
@@ -420,7 +424,7 @@ class Game {
 
     static generateHeroSelection() {
         startCont && (startCont.innerHTML = "");
-
+        Game.klickSfx.play();
         Game.generateSNESControl();
 
         const section_8bit = document.createElement("section");
@@ -491,7 +495,7 @@ class Game {
     static countdown(startNmbr: number, runFunction: () => void) {
         const startCont = document.querySelector(".startCont") as HTMLDivElement;
         startCont && (startCont.innerHTML = "");
-
+        Game.klickSfx.play();
         let count = startNmbr;
         let countdownNmbr = document.createElement("h1");
         countdownNmbr.classList.add("countdownNmbr")
@@ -501,6 +505,7 @@ class Game {
         Game.generateSNESControl();
 
         const interval = setInterval(() => {
+            Game.klickSfx.play();
             count--;
             if(count === 0){
                 countdownNmbr.innerText = `START`;
@@ -658,7 +663,7 @@ class Game {
     }
 
    static addNewHero(heroName:CharacterName, heroType:CharacterType) {
-
+        Game.klickSfx.play();
         const newHero = new Tamaguchi(
             heroName,
             heroType,
@@ -684,6 +689,7 @@ class Game {
         }
 
         const moveCarousel = (direction:number) =>{
+            Game.klickSfx.play();
             Game.currentHeroIndex += direction;
             Game.currentHeroIndex = Math.max(0, Math.min(Game.currentHeroIndex, Activeheroes.length - 1));
             carouselTrack.style.transform = `translateX(-${Game.currentHeroIndex * 380}px)`;
@@ -714,7 +720,7 @@ class Game {
         if (startCont) startCont.innerHTML = "";
         const selectedName = Game.characterNames[Game.selectedCharacterIndex];
         const selectedType = Game.characters[Game.selectedCharacterIndex];
-
+        Game.klickSfx.play();
         
 
 
@@ -801,14 +807,26 @@ class Game {
       }
 
     static generateLevelSelection() {
-
+        Game.klickSfx.volume = 0.3;
+        Game.klickSfx.play();
         Game.removeAllButtonFunction();
         document.querySelector(".startAnimController")?.classList.remove("startAnimController");
         const audio = new Audio("assets/music/menu2.wav");
+        audio.volume = 0;
         audio.play();
-        console.log(audio);
+        let volume = 0;
+        const fadeIn = setInterval(() => {
+          volume += 0.01;
+          if (volume >= 0.3) {
+            audio.volume = 0.3;
+            clearInterval(fadeIn);
+          } else {
+            audio.volume = volume;
+          }
+        }, 100);
+        
+
         audio.loop = true;
-        audio.volume = 0.3;
         Game.currentAudio = audio;
 
         document.querySelector("h1")?.remove();
